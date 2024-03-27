@@ -1,0 +1,9 @@
+name: hotspot
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - geopandas
+prefix: /Users/farrandi/miniconda3/envs/hotspot
