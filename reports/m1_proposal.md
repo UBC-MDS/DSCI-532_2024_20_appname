@@ -4,5 +4,7 @@ We think the following features are of particular interest for creating insightf
 * `co2` which contains the total CO2 emission in a given year for a given country
 * `temperature_change_from_co2` which contains the temperature change due to CO2 in a given year for a given country
 * `co2_per_capita` which describes the CO2 emission per capita in a given year for a given country
-* Information related to country demographics such as `country`, `population`, and `gdp` <br>
+* Information related to country demographics such as `country`, `population`, and `gdp` 
+
+
 All of the features selected above have at least 30,000 non-null entries. Another feature that would be interesting for visualization would be the total global mean temperature change for a given year, which we can get by adding the individual temperature change contribution columns, or derive using another data source such as  NOAA National Centers for Environmental Information.
