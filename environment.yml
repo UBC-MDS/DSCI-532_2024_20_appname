@@ -6,4 +6,11 @@ dependencies:
   - python=3.11
   - pandas
   - geopandas
-prefix: /Users/farrandi/miniconda3/envs/hotspot
+  - ipykernel
+  - altair-all
+  - dash
+  - dash-bootstrap-components
+  - plotly
+  - pip=24.0
+  - pip:
+      - dash-vega-components
