@@ -5,7 +5,7 @@ Surasak Suwanmake//Getty Images
 
 ## Description
 
-With the consensus among scientists that human activities, especially the emission of carbon dioxide (CO2), are the number one contributor to the global warming, we aim to build an innovative tool to visualize this relationship in an intuitive way. To be more specific, we want to inspect the dynamics between CO2 emissions, global temperature changes, and economy activity indicators (e.g GDP per capita) over the years. By providing a user-friendly interface that allows for investigating the data both globally and at the country level, the dashboard seeks to make the abstract and sometimes overwhelming data on climate change more tangible and understandable. 
+Given consensus among scientists that human activities, especially the emission of carbon dioxide (CO2), are the number one contributor to the global warming, we aim to build an innovative tool to visualize this relationship in an intuitive way. To be more specific, we want to inspect the dynamics between CO2 emissions, global temperature changes, and economy activity indicators (e.g GDP per capita) over the years. By providing a user-friendly interface that allows for investigating the data both globally and at the country level, the dashboard seeks to make the abstract and sometimes overwhelming data on climate change more tangible and understandable. 
 
 ## Usage
 Pending
