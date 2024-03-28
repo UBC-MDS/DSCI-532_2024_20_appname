@@ -6,7 +6,7 @@ The Earth\'s climate is changing and it can be detrimental to environmental stab
 
 Given consensus among scientists that human activities, especially the emission of carbon dioxide (CO2), are the number one contributor to the global warming, we aim to build an innovative tool to visualize this relationship in an intuitive way. To be more specific, we want to inspect the intricate dynamics between CO2 emissions, global temperature changes, and economic activity indicators (e.g GDP per capita) over the years. By providing a user-friendly interface that allows for investigating the data both globally and at the country level, the dashboard seeks to make the abstract and sometimes overwhelming data on climate change more tangible and understandable. Going beyond merely presenting statistics, our dashboard offers a compelling narrative on the evolution of CO2 emissions over time. It utilizes a diversified visual tools, including line charts, bar charts, and maps to vividly illustrate the profound impact of human activities on our planet's climate.
 
-Possible users and stakeholders who would find value in our dashboard include governments, policy makers, scientists and environmental advocacy organizations. Please find more detailed discussion of the use cases in section 3.
+Possible users and stakeholders who would find value in our dashboard include governments, policy makers, scientists, environmental advocacy organizations, as well as individuals who might be interested in learning more about the impact of CO2 emission across the globe. Please find more detailed discussion of the use cases in section 3.
 
 ## Section 2: Description of the data
 
