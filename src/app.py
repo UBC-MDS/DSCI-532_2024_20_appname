@@ -34,15 +34,6 @@ app.layout = dbc.Container(
         ),
         dvc.Vega(id="global-temp-co2", opt={"renderer": "svg", "actions": False}),
     ]
-    # [
-    #     html.Header("Simple Dash App: Hotspot", className="display-4"),
-    #     dash_table.DataTable(data=df.head(10).to_dict("records"), page_size=10),
-    #     dcc.Graph(
-    #         figure=px.scatter(
-    #             df.head(10), x="gdp", y="population", color="country", size="year"
-    #         )
-    #     ),
-    # ]
 )
 
 
@@ -52,6 +43,9 @@ app.layout = dbc.Container(
     Input("year-slider", "value"),
 )
 def update_global_temp_co2(value):
+    """
+    Update the global temperature and CO2 plot based on the year range selected.
+    """
     return hp.plot_global_temp_co2(df, start_year=value[0], end_year=value[1])
 
 
