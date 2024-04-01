@@ -20,7 +20,8 @@ app.layout = dbc.Container(
         html.Hr(),
         dbc.Container(
             [
-                html.H2("Select Year Range"),
+                html.H2("Filter Options"),
+                html.H4("Select Year Range"),
                 dcc.RangeSlider(
                     min=1850,
                     max=2022,
@@ -38,7 +39,7 @@ app.layout = dbc.Container(
                     id="year-slider",
                     updatemode="drag",
                 ),
-                html.H2("Select Countries"),
+                html.H4("Select Countries"),
                 dcc.Dropdown(
                     id="country-dropdown",
                     options=[
@@ -50,10 +51,35 @@ app.layout = dbc.Container(
                 ),
             ]
         ),
-        dcc.Graph(figure={}, id="world-map"),
-        dvc.Vega(
-            id="global-temp-co2",
-            opt={"renderer": "svg", "actions": False},
+        dbc.Container(
+            [
+                html.H2("World Map of CO2 Emissions"),
+                dcc.Graph(figure={}, id="world-map"),
+            ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H3("Temperature and CO2 Emissions over Time"),
+                        dvc.Vega(
+                            id="global-temp-co2",
+                            opt={"renderer": "svg", "actions": False},
+                        ),
+                    ],
+                    width=7,
+                ),
+                dbc.Col(
+                    [
+                        html.H3("Top CO2 Emitters"),
+                        dvc.Vega(
+                            id="top-emmitters",
+                            opt={"renderer": "svg", "actions": False},
+                        ),
+                    ]
+                ),
+            ],
+            justify="center",
         ),
     ]
 )
@@ -75,12 +101,25 @@ def update_world_map(year, country):
 @callback(
     Output("global-temp-co2", "spec"),
     Input("year-slider", "value"),
+    Input("country-dropdown", "value"),
 )
-def update_global_temp_co2(value):
+def update_global_temp_co2(year, country):
     """
     Update the global temperature and CO2 plot based on the year range selected.
     """
-    return hp.plot_global_temp_co2(df, start_year=value[0], end_year=value[1])
+    return hp.plot_global_temp_co2(df, country, start_year=year[0], end_year=year[1])
+
+
+@callback(
+    Output("top-emmitters", "spec"),
+    Input("year-slider", "value"),
+    Input("country-dropdown", "value"),
+)
+def update_top_emitters(year, country):
+    """
+    Update the top 10 CO2 emitters plot based on the year range selected.
+    """
+    return hp.plot_top_emitters(df, country, start_year=year[0], end_year=year[1])
 
 
 if __name__ == "__main__":

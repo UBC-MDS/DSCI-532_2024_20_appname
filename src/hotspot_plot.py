@@ -4,12 +4,17 @@ import numpy as np
 import plotly.express as px
 
 
-def plot_global_temp_co2(df, start_year=1850, end_year=2022):
+def plot_global_temp_co2(df, country_codes, start_year=1850, end_year=2022):
     """
     Plots the global temperature and CO2 concentration from start_year to end_year.
     """
     co2_color = "red"
     temp_color = "blue"
+
+    if country_codes:
+        df = df[df.iso_code.isin(country_codes)]
+    else:
+        df = df[df.country == "World"]
 
     df_year = (
         df.query(f"{start_year} <= year <= {end_year}")
@@ -41,8 +46,7 @@ def plot_global_temp_co2(df, start_year=1850, end_year=2022):
         alt.layer(co2_line, temp_line)
         .resolve_scale(y="independent")
         .properties(
-            title="Global CO2 emissions and temperature change over time",
-            width=1000,
+            width=600,  # TODO: Change width to be responsive
             height=400,
         )
         .configure_axisLeft(titleColor=co2_color, titleFontSize=12)
@@ -70,9 +74,7 @@ def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
         scope="world",
     )
     fig.update_layout(
-        title_text="CO2 emissions by country",
-        title_font_size=30,
-        margin={"r": 0, "t": 55, "l": 0, "b": 0},
+        margin={"r": 0, "t": 25, "l": 0, "b": 0},
     )
     fig.update_geos(
         resolution=110,
@@ -83,3 +85,30 @@ def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
     )
 
     return fig
+
+
+def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022):
+    """
+    Plots the top 10 CO2 emitters from start_year to end_year.
+    """
+    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
+    if country_codes:
+        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
+
+    df_sorted = (
+        df_filtered.groupby("country")
+        .sum()
+        .sort_values("co2", ascending=False)
+        .head(11)
+        .reset_index()
+    )
+    return (
+        alt.Chart(df_sorted)
+        .mark_bar()
+        .encode(
+            y=alt.Y("country", title="Country").sort("-x"),
+            x=alt.X("co2", title="CO2 Emissions"),
+            color=alt.Color("country", legend=None),
+        )
+        .to_dict()
+    )
