@@ -1,6 +1,7 @@
 import pandas as pd
 import altair as alt
 import numpy as np
+import plotly.express as px
 
 
 def plot_global_temp_co2(df, start_year=1850, end_year=2022):
@@ -48,3 +49,37 @@ def plot_global_temp_co2(df, start_year=1850, end_year=2022):
         .configure_axisRight(titleColor=temp_color, titleFontSize=12)
         .configure_title(fontSize=20)
     ).to_dict()
+
+
+def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
+    """
+    Plots the world map of CO2 emissions for the selected countries from start_year to end_year.
+    """
+
+    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
+    if country_codes:
+        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
+
+    fig = px.choropleth(
+        df_filtered,
+        locations="iso_code",
+        color="co2",
+        color_continuous_scale="reds",
+        labels={"co2": "CO2 Emissions"},
+        hover_name="country",
+        scope="world",
+    )
+    fig.update_layout(
+        title_text="CO2 emissions by country",
+        title_font_size=30,
+        margin={"r": 0, "t": 55, "l": 0, "b": 0},
+    )
+    fig.update_geos(
+        resolution=110,
+        showcountries=True,
+        showland=True,
+        landcolor="lightgrey",
+        countrycolor="darkgrey",
+    )
+
+    return fig
