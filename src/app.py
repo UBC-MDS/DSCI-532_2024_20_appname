@@ -2,7 +2,7 @@ from dash import Dash, html, dash_table, dcc, Input, Output, callback
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-import hotspot_plot as hp
+import src.hotspot_plot as hp
 import dash_vega_components as dvc
 import json
 
@@ -13,6 +13,7 @@ with open("data/processed/country_codes.json", encoding="utf-8") as f:
 
 # Initialize Dash app
 app = Dash(__name__, title="Hotspot", external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 app.layout = dbc.Container(
     [
@@ -65,6 +66,7 @@ app.layout = dbc.Container(
                         dvc.Vega(
                             id="global-temp-co2",
                             opt={"renderer": "svg", "actions": False},
+                            style={"width": "100%"},
                         ),
                     ],
                     width=7,
@@ -75,6 +77,7 @@ app.layout = dbc.Container(
                         dvc.Vega(
                             id="top-emmitters",
                             opt={"renderer": "svg", "actions": False},
+                            style={"width": "100%"},
                         ),
                     ]
                 ),
