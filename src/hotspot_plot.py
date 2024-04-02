@@ -46,7 +46,7 @@ def plot_global_temp_co2(df, country_codes, start_year=1850, end_year=2022):
         alt.layer(co2_line, temp_line)
         .resolve_scale(y="independent")
         .properties(
-            width=600,  # TODO: Change width to be responsive
+            width="container",
             height=400,
         )
         .configure_axisLeft(titleColor=co2_color, titleFontSize=12)
@@ -102,7 +102,7 @@ def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022, n=10):
         .reset_index()
     )
     return (
-        alt.Chart(df_sorted)
+        alt.Chart(df_sorted, width="container")
         .mark_bar()
         .encode(
             y=alt.Y("country", title="Country").sort("-x"),

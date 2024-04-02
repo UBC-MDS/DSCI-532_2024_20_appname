@@ -66,6 +66,7 @@ app.layout = dbc.Container(
                         dvc.Vega(
                             id="global-temp-co2",
                             opt={"renderer": "svg", "actions": False},
+                            style={"width": "100%"},
                         ),
                     ],
                     width=7,
@@ -76,6 +77,7 @@ app.layout = dbc.Container(
                         dvc.Vega(
                             id="top-emmitters",
                             opt={"renderer": "svg", "actions": False},
+                            style={"width": "100%"},
                         ),
                     ]
                 ),
