@@ -2,7 +2,7 @@ from dash import Dash, html, dash_table, dcc, Input, Output, callback
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-import hotspot_plot as hp
+import src.hotspot_plot as hp
 import dash_vega_components as dvc
 import json
 
