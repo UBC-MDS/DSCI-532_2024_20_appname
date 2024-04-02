@@ -13,6 +13,7 @@ with open("data/processed/country_codes.json", encoding="utf-8") as f:
 
 # Initialize Dash app
 app = Dash(__name__, title="Hotspot", external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 app.layout = dbc.Container(
     [
