@@ -77,7 +77,6 @@ def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
         margin={"r": 0, "t": 25, "l": 0, "b": 0},
     )
     fig.update_geos(
-        resolution=110,
         showcountries=True,
         showland=True,
         landcolor="lightgrey",
@@ -87,9 +86,9 @@ def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
     return fig
 
 
-def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022):
+def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022, n=10):
     """
-    Plots the top 10 CO2 emitters from start_year to end_year.
+    Plots the top n CO2 emitters from start_year to end_year.
     """
     df_filtered = df.query(f"{start_year} <= year <= {end_year}")
     if country_codes:
@@ -99,7 +98,7 @@ def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022):
         df_filtered.groupby("country")
         .sum()
         .sort_values("co2", ascending=False)
-        .head(11)
+        .head(n)
         .reset_index()
     )
     return (

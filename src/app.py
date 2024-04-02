@@ -7,7 +7,7 @@ import dash_vega_components as dvc
 import json
 
 # Load data
-df = pd.read_csv("data/raw/owid-co2-data.csv")
+df = pd.read_csv("data/processed/co2-data.csv")
 with open("data/processed/country_codes.json", encoding="utf-8") as f:
     country_codes = json.load(f)
 
@@ -117,10 +117,10 @@ def update_global_temp_co2(year, country):
 )
 def update_top_emitters(year, country):
     """
-    Update the top 10 CO2 emitters plot based on the year range selected.
+    Update the top CO2 emitters plot based on the year range selected.
     """
     return hp.plot_top_emitters(df, country, start_year=year[0], end_year=year[1])
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
