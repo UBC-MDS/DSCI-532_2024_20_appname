@@ -57,6 +57,7 @@ app.layout = dbc.Container(
                     [
                         html.H4("Total CO2 emissions:"),
                         html.H2(id="total-co2", style={"color": "red"}),
+                        html.P("Over selected countried over selected years."),
                         html.Br(),
                         html.H4("Fun Fact!"),
                         html.P(id="fun-fact"),
