@@ -51,12 +51,30 @@ app.layout = dbc.Container(
                 ),
             ]
         ),
-        dbc.Container(
+        dbc.Row(
             [
-                html.H2("World Map of CO2 Emissions"),
-                dcc.Graph(figure={}, id="world-map"),
-            ]
+                dbc.Col(
+                    [
+                        html.H4("Total CO2 emissions:"),
+                        html.H2(id="total-co2", style={"color": "red"}),
+                        html.P("Over selected countried over selected years."),
+                        html.Br(),
+                        html.H4("Fun Fact!"),
+                        html.P(id="fun-fact"),
+                    ],
+                    align="center",
+                ),
+                dbc.Col(
+                    [
+                        html.H2("World Map of CO2 Emissions"),
+                        dcc.Graph(figure={}, id="world-map"),
+                    ],
+                    width=8,
+                ),
+            ],
+            justify="center",
         ),
+        html.Br(),
         dbc.Row(
             [
                 dbc.Col(
@@ -124,5 +142,37 @@ def update_top_emitters(year, country):
     return hp.plot_top_emitters(df, country, start_year=year[0], end_year=year[1])
 
 
+@callback(
+    Output("total-co2", "children"),
+    Input("year-slider", "value"),
+    Input("country-dropdown", "value"),
+)
+def update_total_co2(year, country):
+    """
+    Update the total CO2 emissions based on the year range selected.
+    """
+    total_co2 = hp.get_total_co2_emissions(
+        df, country, start_year=year[0], end_year=year[1]
+    )
+    return f"{total_co2*1000:,.0f} kT"
+
+
+@callback(
+    Output("fun-fact", "children"),
+    Input("year-slider", "value"),
+    Input("country-dropdown", "value"),
+)
+def update_fun_fact(year, country):
+    """
+    Update the fun fact based on the total CO2 emissions.
+    Funfact: How many empire state buildings is equivalent to the total CO2 emissions.
+    """
+    total_co2 = hp.get_total_co2_emissions(
+        df, country, start_year=year[0], end_year=year[1]
+    )
+    num_empire_state_buildings = hp.get_number_of_esb(total_co2)
+    return f"Equivalent to {num_empire_state_buildings:,} Empire State Buildings!"
+
+
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False)  # Remember to change to False before deploying

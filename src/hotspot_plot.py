@@ -3,6 +3,9 @@ import altair as alt
 import numpy as np
 import plotly.express as px
 
+CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
+ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
+
 
 def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     """
@@ -13,8 +16,6 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
 
     if country_codes:
         df = df[df.iso_code.isin(country_codes)]
-    else:
-        df = df
 
     df_year = (
         df.query(f"{start_year} <= year <= {end_year}")
@@ -111,3 +112,24 @@ def plot_top_emitters(df, country_codes, start_year=1900, end_year=2022, n=10):
         )
         .to_dict()
     )
+
+
+def get_total_co2_emissions(df, country_codes, start_year=1900, end_year=2022):
+    """
+    Get the total CO2 emissions for the selected countries from start_year to end_year.
+    """
+    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
+    if country_codes:
+        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
+
+    total_co2 = df_filtered[["co2"]].sum()  # Gt
+    return total_co2.values[0]
+
+
+def get_number_of_esb(total_co2_mass):
+    """
+    Get the number of Empire State Buildings that can be filled with the total CO2 emissions.
+    """
+    total_co2_mass_kg = total_co2_mass * 1e6  # Gt to kg
+    total_co2_volume = total_co2_mass_kg / CO2_DENSITY  # kg to m^3
+    return int(total_co2_volume / ESB_VOLUME)
