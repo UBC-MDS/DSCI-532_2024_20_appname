@@ -4,7 +4,7 @@ import numpy as np
 import plotly.express as px
 
 
-def plot_global_temp_co2(df, country_codes, start_year=1850, end_year=2022):
+def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     """
     Plots the global temperature and CO2 concentration from start_year to end_year.
     """
@@ -14,7 +14,7 @@ def plot_global_temp_co2(df, country_codes, start_year=1850, end_year=2022):
     if country_codes:
         df = df[df.iso_code.isin(country_codes)]
     else:
-        df = df[df.country == "World"]
+        df = df
 
     df_year = (
         df.query(f"{start_year} <= year <= {end_year}")
@@ -55,7 +55,7 @@ def plot_global_temp_co2(df, country_codes, start_year=1850, end_year=2022):
     ).to_dict()
 
 
-def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
+def plot_world_map(df, country_codes, start_year=1900, end_year=2022):
     """
     Plots the world map of CO2 emissions for the selected countries from start_year to end_year.
     """
@@ -86,7 +86,7 @@ def plot_world_map(df, country_codes, start_year=1850, end_year=2022):
     return fig
 
 
-def plot_top_emitters(df, country_codes, start_year=1850, end_year=2022, n=10):
+def plot_top_emitters(df, country_codes, start_year=1900, end_year=2022, n=10):
     """
     Plots the top n CO2 emitters from start_year to end_year.
     """
