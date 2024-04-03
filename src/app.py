@@ -24,12 +24,11 @@ app.layout = dbc.Container(
                 html.H2("Filter Options"),
                 html.H4("Select Year Range"),
                 dcc.RangeSlider(
-                    min=1850,
+                    min=1900,
                     max=2022,
                     step=1,
-                    value=[1850, 2022],
+                    value=[1900, 2022],
                     marks={
-                        1850: "1850",
                         1900: "1900",
                         1950: "1950",
                         2000: "2000",
