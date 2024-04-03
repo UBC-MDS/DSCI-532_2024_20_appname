@@ -174,4 +174,4 @@ def update_fun_fact(year, country):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Remember to change to False before deploying
+    app.run(debug=False)  # Remember to change to False before deploying
