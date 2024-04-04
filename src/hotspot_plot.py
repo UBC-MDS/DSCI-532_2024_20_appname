@@ -26,7 +26,7 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     )
 
     base = alt.Chart(df_year).encode(
-        alt.X("year:O", title="Year").axis(
+        alt.X("year:Q", title="Year").axis(
             labelAngle=0, values=list(np.linspace(start_year, end_year, 20).astype(int))
         )
     )
@@ -48,7 +48,7 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
         .resolve_scale(y="independent")
         .properties(
             width="container",
-            height=400,
+            height="container",
         )
         .configure_axisLeft(titleColor=co2_color, titleFontSize=12)
         .configure_axisRight(titleColor=temp_color, titleFontSize=12)
