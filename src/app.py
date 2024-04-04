@@ -17,8 +17,17 @@ server = app.server
 
 app.layout = dbc.Container(
     [
+        # HEADER
         html.H1(children="Hotspot"),
+        html.P(""" 
+        How many kilotons of CO2 are emmitted by countries across the world? 
+        Our Hotspot dashboard offers an easy and intuitive way to look at CO2
+        emissions by different countries in the world, that allows for easy
+        filtering by year range and country.
+        """),
         html.Hr(),
+        
+        # First container, contains widgets (year range, countries) & key KPI 
         dbc.Row(
             [dbc.Col(
                 [
@@ -39,6 +48,16 @@ app.layout = dbc.Container(
                         pushable=20,
                         id="year-slider",
                         updatemode="drag",
+                    ),
+                    html.H4("Select Countries"),
+                    dcc.Dropdown(
+                        id="country-dropdown",
+                        options=[
+                            # country_codes
+                            {"label": name, "value": code}
+                            for name, code in country_codes.items()
+                        ],
+                        multi=True,
                     ),                   
                 ],
             ),
@@ -48,7 +67,7 @@ app.layout = dbc.Container(
                         html.H2(id="total-co2", style={"color": "red"}),
                         html.P("Over selected countried over selected years."),
                         html.Br(),
-                        html.H4("Fun Fact!"),
+                        # html.H4("Fun Fact!"),
                         html.P(id="fun-fact"),
                     ],
                     align="center",
@@ -56,53 +75,38 @@ app.layout = dbc.Container(
             )]
         ),
         html.Br(),
+        
+        # Second container, contains map (left), top CO2 emitters (top right), &  
+        # temperature vs CO2 over time (bottom right)
         dbc.Row(
             [
                 dbc.Col(
                     [
-                        html.H3("Temperature and CO2 Emissions over Time"),
-                        dvc.Vega(
-                            id="global-temp-co2",
-                            opt={"renderer": "svg", "actions": False},
-                            style={"width": "100%"},
-                        ),
+                        html.H4("World Map of CO2 Emissions"),
+                        dcc.Graph(figure={}, id="world-map"),
                     ],
                     md=7,
                 ),
                 dbc.Col(
                     [
-                        html.H3("Top CO2 Emitters"),
+                        html.H4("Top CO2 Emitters"),
                         dvc.Vega(
                             id="top-emmitters",
                             opt={"renderer": "svg", "actions": False},
                             style={"width": "100%"},
                         ),
-                    ]
+                        html.H4("Temperature and CO2 Emissions over Time"),
+                        dvc.Vega(
+                            id="global-temp-co2",
+                            opt={"renderer": "svg", "actions": False},
+                            style={"width": "100%", "height": "200px"},
+                        ),
+                    ],
+                    align="center",
                 ),
             ],
             justify="center",
-            style={'height': '20%'}
         ),
-        html.Br(),
-        dbc.Row(
-            [
-                
-                html.H4("Select Countries"),
-                    dcc.Dropdown(
-                        id="country-dropdown",
-                        options=[
-                            # country_codes
-                            {"label": name, "value": code}
-                            for name, code in country_codes.items()
-                        ],
-                        multi=True,
-                ),
-                html.H2("World Map of CO2 Emissions"),
-                dcc.Graph(figure={}, id="world-map"),
-            ],
-            justify="center",
-        ),
-
     ]
 )
 
@@ -173,7 +177,7 @@ def update_fun_fact(year, country):
         df, country, start_year=year[0], end_year=year[1]
     )
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
-    return f"Equivalent to {num_empire_state_buildings:,} Empire State Buildings!"
+    return f"This is quivalent to {num_empire_state_buildings:,} Empire State Buildings in weight!"
 
 
 if __name__ == "__main__":
