@@ -6,11 +6,11 @@ Surasak Suwanmake//Getty Images
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Python 3.11.0](https://img.shields.io/badge/python-3.11.0-blue.svg)](https://www.python.org/downloads/release/python-390/)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📖 The Problem
-Climate change is a defining problem of the 21st century. In order to limit global temperature increase to 1.5 degrees, we must achieve net zero emissions by 2050. This is an ambitious goal, and a key step in achieving it is understanding precisely where our emissions are coming from so we can take action.
+Climate change is a defining problem of the 21st century. In order to limit global temperature increase to 1.5°, we must achieve net zero emissions by 2050. This is an ambitious goal, and a key step in achieving it is understanding precisely where our emissions are coming from so we can take action.
 
 ## 💡 The Solution
 
-We aim to build an innovative tool to visualize CO2 emission sources in an intuitive way. To be more specific, we want to inspect the dynamics between CO2 emissions, global temperature changes, and economy activity indicators (e.g GDP per capita) over the years. By providing a user-friendly interface that allows for investigating the data both globally and at the country level, the dashboard seeks to make the abstract and sometimes overwhelming data on climate change more tangible and understandable.
+We aim to build an innovative tool to visualize CO2 emission sources in an intuitive way. To be more specific, we want to inspect the dynamics between CO2 emissions, global temperature changes, and economic activity indicators (e.g GDP per capita) over the years. By providing a user-friendly interface that allows for investigating the data both globally and at the country level, the dashboard seeks to make abstract and sometimes overwhelming data on climate change more tangible and understandable.
 
 ## 🏃 Usage
 
