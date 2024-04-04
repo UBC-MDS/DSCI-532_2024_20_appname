@@ -19,41 +19,30 @@ app.layout = dbc.Container(
     [
         html.H1(children="Hotspot"),
         html.Hr(),
-        dbc.Container(
-            [
-                html.H2("Filter Options"),
-                html.H4("Select Year Range"),
-                dcc.RangeSlider(
-                    min=1900,
-                    max=2022,
-                    step=1,
-                    value=[1900, 2022],
-                    marks={
-                        1900: "1900",
-                        1950: "1950",
-                        2000: "2000",
-                        2022: "2022",
-                    },
-                    tooltip={"placement": "bottom"},
-                    pushable=20,
-                    id="year-slider",
-                    updatemode="drag",
-                ),
-                html.H4("Select Countries"),
-                dcc.Dropdown(
-                    id="country-dropdown",
-                    options=[
-                        # country_codes
-                        {"label": name, "value": code}
-                        for name, code in country_codes.items()
-                    ],
-                    multi=True,
-                ),
-            ]
-        ),
         dbc.Row(
-            [
-                dbc.Col(
+            [dbc.Col(
+                [
+                    html.H2("Filter Options"),
+                    html.H4("Select Year Range"),
+                    dcc.RangeSlider(
+                        min=1900,
+                        max=2022,
+                        step=1,
+                        value=[1900, 2022],
+                        marks={
+                            1900: "1900",
+                            1950: "1950",
+                            2000: "2000",
+                            2022: "2022",
+                        },
+                        tooltip={"placement": "bottom"},
+                        pushable=20,
+                        id="year-slider",
+                        updatemode="drag",
+                    ),                   
+                ],
+            ),
+            dbc.Col(
                     [
                         html.H4("Total CO2 emissions:"),
                         html.H2(id="total-co2", style={"color": "red"}),
@@ -63,16 +52,8 @@ app.layout = dbc.Container(
                         html.P(id="fun-fact"),
                     ],
                     align="center",
-                ),
-                dbc.Col(
-                    [
-                        html.H2("World Map of CO2 Emissions"),
-                        dcc.Graph(figure={}, id="world-map"),
-                    ],
-                    width=8,
-                ),
-            ],
-            justify="center",
+                    md = 5
+            )]
         ),
         html.Br(),
         dbc.Row(
@@ -86,7 +67,7 @@ app.layout = dbc.Container(
                             style={"width": "100%"},
                         ),
                     ],
-                    width=7,
+                    md=7,
                 ),
                 dbc.Col(
                     [
@@ -100,7 +81,28 @@ app.layout = dbc.Container(
                 ),
             ],
             justify="center",
+            style={'height': '20%'}
         ),
+        html.Br(),
+        dbc.Row(
+            [
+                
+                html.H4("Select Countries"),
+                    dcc.Dropdown(
+                        id="country-dropdown",
+                        options=[
+                            # country_codes
+                            {"label": name, "value": code}
+                            for name, code in country_codes.items()
+                        ],
+                        multi=True,
+                ),
+                html.H2("World Map of CO2 Emissions"),
+                dcc.Graph(figure={}, id="world-map"),
+            ],
+            justify="center",
+        ),
+
     ]
 )
 
