@@ -19,49 +19,51 @@ app.layout = dbc.Container(
     [
         # HEADER
         html.H1(children="Hotspot"),
-        html.P(""" 
+        html.P(
+            """ 
         How many kilotons of CO2 are emmitted by countries across the world? 
         Our Hotspot dashboard offers an easy and intuitive way to look at CO2
         emissions by different countries in the world, that allows for easy
         filtering by year range and country.
-        """),
+        """
+        ),
         html.Hr(),
-        
-        # First container, contains widgets (year range, countries) & key KPI 
+        # First container, contains widgets (year range, countries) & key KPI
         dbc.Row(
-            [dbc.Col(
-                [
-                    html.H2("Filter Options"),
-                    html.H4("Select Year Range"),
-                    dcc.RangeSlider(
-                        min=1900,
-                        max=2022,
-                        step=1,
-                        value=[1900, 2022],
-                        marks={
-                            1900: "1900",
-                            1950: "1950",
-                            2000: "2000",
-                            2022: "2022",
-                        },
-                        tooltip={"placement": "bottom"},
-                        pushable=20,
-                        id="year-slider",
-                        updatemode="drag",
-                    ),
-                    html.H4("Select Countries"),
-                    dcc.Dropdown(
-                        id="country-dropdown",
-                        options=[
-                            # country_codes
-                            {"label": name, "value": code}
-                            for name, code in country_codes.items()
-                        ],
-                        multi=True,
-                    ),                   
-                ],
-            ),
-            dbc.Col(
+            [
+                dbc.Col(
+                    [
+                        html.H2("Filter Options"),
+                        html.H4("Select Year Range"),
+                        dcc.RangeSlider(
+                            min=1900,
+                            max=2022,
+                            step=1,
+                            value=[1900, 2022],
+                            marks={
+                                1900: "1900",
+                                1950: "1950",
+                                2000: "2000",
+                                2022: "2022",
+                            },
+                            tooltip={"placement": "bottom"},
+                            pushable=20,
+                            id="year-slider",
+                            updatemode="drag",
+                        ),
+                        html.H4("Select Countries"),
+                        dcc.Dropdown(
+                            id="country-dropdown",
+                            options=[
+                                # country_codes
+                                {"label": name, "value": code}
+                                for name, code in country_codes.items()
+                            ],
+                            multi=True,
+                        ),
+                    ],
+                ),
+                dbc.Col(
                     [
                         html.H4("Total CO2 emissions:"),
                         html.H2(id="total-co2", style={"color": "red"}),
@@ -71,12 +73,12 @@ app.layout = dbc.Container(
                         html.P(id="fun-fact"),
                     ],
                     align="center",
-                    md = 5
-            )]
+                    md=5,
+                ),
+            ]
         ),
         html.Br(),
-        
-        # Second container, contains map (left), top CO2 emitters (top right), &  
+        # Second container, contains map (left), top CO2 emitters (top right), &
         # temperature vs CO2 over time (bottom right)
         dbc.Row(
             [
