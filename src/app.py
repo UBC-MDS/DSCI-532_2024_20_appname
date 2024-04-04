@@ -177,7 +177,7 @@ def update_fun_fact(year, country):
         df, country, start_year=year[0], end_year=year[1]
     )
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
-    return f"This is quivalent to {num_empire_state_buildings:,} Empire State Buildings in weight!"
+    return f"This is quivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
 
 
 if __name__ == "__main__":
