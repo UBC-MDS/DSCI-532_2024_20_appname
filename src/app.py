@@ -38,7 +38,7 @@ row_style = {
     "margin-bottom": "5px",  # Bottom margin
 }
 footer_style = {
-    "background-color": "#f2f2f2",  # Light gray background color
+    # "background-color": "#f2f2f2",  # Light gray background color
     "padding": "10px",  # Padding around the footer
     "color": "black",  # Text color
 }
