@@ -11,8 +11,8 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     """
     Plots the global temperature and CO2 concentration from start_year to end_year.
     """
-    co2_color = "red"
-    temp_color = "blue"
+    co2_color = "#424254"
+    temp_color = "#cc2a40"
 
     if country_codes:
         df = df[df.iso_code.isin(country_codes)]
@@ -70,7 +70,10 @@ def plot_world_map(df, country_codes, start_year=1900, end_year=2022):
         df_filtered,
         locations="iso_code",
         color="co2",
-        color_continuous_scale="reds",
+        color_continuous_scale=[
+            [0.0, "#e6e6e6"],  # Light gray for lowest value
+            [1.0, "#cc2a40"],  # Dark red for highest value
+        ],
         labels={"co2": "CO2 Emissions"},
         hover_name="country",
         scope="world",
@@ -109,8 +112,8 @@ def plot_top_emitters(df, country_codes, start_year=1900, end_year=2022, n=10):
         .encode(
             y=alt.Y("country", title="Country").sort("-x"),
             x=alt.X("co2", title="CO2 Emissions"),
-            color=alt.Color("country", legend=None),
         )
+        .configure_mark(color="#cc2a40")
         .to_dict()
     )
 
