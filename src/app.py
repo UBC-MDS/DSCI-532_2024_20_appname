@@ -12,22 +12,58 @@ with open("data/processed/country_codes.json", encoding="utf-8") as f:
     country_codes = json.load(f)
 
 # Initialize Dash app
-app = Dash(__name__, title="Hotspot", external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, title="Hotspot", external_stylesheets=[dbc.themes.FLATLY])
 server = app.server
 
+# Define inline CSS styles
+root_style = {
+    "font-family": "Helvetica",
+    #   "background-color": "#e8caa4"
+}  # Font style
+header_style = {
+    # "background-color": "#802020",
+    "color": "white",  # Text color
+    "padding": "20px",  # Padding around the header
+}
+title_style = {
+    "font-size": "45px",  # Larger font size
+    "color": "black",  # Text color
+}
+title_p_style = {
+    "font-size": "16px",  # Larger font size
+    "color": "darkgray",  # Dark gray text color
+}
+row_style = {
+    "margin-top": "20px",  # Top margin
+    "margin-bottom": "5px",  # Bottom margin
+}
+footer_style = {
+    # "background-color": "#f2f2f2",  # Light gray background color
+    "padding": "10px",  # Padding around the footer
+    "color": "black",  # Text color
+}
+
+# Define layout
 app.layout = dbc.Container(
     [
         # HEADER
-        html.H1(children="Hotspot"),
-        html.P(
-            """ 
-        How many kilotons of CO2 are emmitted by countries across the world? 
-        Our Hotspot dashboard offers an easy and intuitive way to look at CO2
-        emissions by different countries in the world, that allows for easy
-        filtering by year range and country.
-        """
+        html.Div(
+            [
+                html.H1(children="Hotspot", style=title_style),  # Apply title style
+                html.P(
+                    [
+                        """ 
+                How many kilotons of CO2 are emitted by countries across the world? 
+                Our Hotspot dashboard offers an easy and intuitive way to look at CO2
+                emissions by different countries in the world, that allows for easy
+                filtering by year range and country.
+                """
+                    ],
+                    style=title_p_style,
+                ),
+            ],
+            style=header_style,  # Apply header style
         ),
-        html.Hr(),
         # First container, contains widgets (year range, countries) & key KPI
         dbc.Row(
             [
@@ -66,7 +102,7 @@ app.layout = dbc.Container(
                 dbc.Col(
                     [
                         html.H4("Total CO2 emissions:"),
-                        html.H2(id="total-co2", style={"color": "red"}),
+                        html.H2(id="total-co2", style={"color": "#cc2a40"}),
                         html.P("Over selected countried over selected years."),
                         html.Br(),
                         # html.H4("Fun Fact!"),
@@ -75,7 +111,8 @@ app.layout = dbc.Container(
                     align="center",
                     md=5,
                 ),
-            ]
+            ],
+            style=row_style,
         ),
         html.Br(),
         # Second container, contains map (left), top CO2 emitters (top right), &
@@ -108,8 +145,37 @@ app.layout = dbc.Container(
                 ),
             ],
             justify="center",
+            style=row_style,
         ),
-    ]
+        html.Footer(
+            [
+                html.P("Last Updated: 2024-04-05"),
+                html.P(
+                    [
+                        "Made by: ",
+                        html.A("@farrandi", href="https://github.com/farrandi"),
+                        ", ",
+                        html.A("@monazhu", href="https://github.com/monazhu"),
+                        ", ",
+                        html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
+                        ", ",
+                        html.A("@Rachel0619", href="https://github.com/Rachel0619"),
+                    ]
+                ),
+                html.P(
+                    [
+                        "Repo: ",
+                        html.A(
+                            "Hotspot",
+                            href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
+                        ),
+                    ]
+                ),
+            ],
+            style=footer_style,
+        ),
+    ],
+    style=root_style,
 )
 
 
@@ -183,4 +249,4 @@ def update_fun_fact(year, country):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)  # Remember to change to False before deploying
+    app.run(debug=True)  # Remember to change to False before deploying
