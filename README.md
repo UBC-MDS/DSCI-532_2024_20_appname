@@ -14,6 +14,8 @@ We aim to build an innovative tool to visualize CO2 emission sources in an intui
 
 ## 🏃 Usage
 
+![demo](img/demo.gif)
+
 ### 🚀 Quick Start
 
 Visit the [HotSpot Dashboard](https://hotspot-tracking-co2-emission-across-the.onrender.com/) to view the dashboard.

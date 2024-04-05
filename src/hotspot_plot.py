@@ -26,8 +26,8 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     )
 
     base = alt.Chart(df_year).encode(
-        alt.X("year:Q", title="Year").axis(
-            labelAngle=0, values=list(np.linspace(start_year, end_year, 20).astype(int))
+        alt.X("year:O", title="Year").axis(
+            labelAngle=-45, values=list(np.linspace(start_year, end_year, 20).astype(int))
         )
     )
 
