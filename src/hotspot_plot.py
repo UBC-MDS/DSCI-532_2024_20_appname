@@ -6,6 +6,8 @@ import plotly.express as px
 CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
 ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
 
+alt.data_transformers.enable("vegafusion")
+
 
 def filter_data(df, country_codes, start_year=1900, end_year=2022):
     """
@@ -59,7 +61,7 @@ def plot_global_temp_co2(df, start_year=1900, end_year=2022):
         .configure_axisLeft(titleColor=co2_color, titleFontSize=12)
         .configure_axisRight(titleColor=temp_color, titleFontSize=12)
         .configure_title(fontSize=20)
-    ).to_dict()
+    ).to_dict(format="vega")
 
 
 def plot_world_map(df_filtered):
@@ -112,7 +114,7 @@ def plot_top_emitters(df_filtered, n=10):
             color=alt.Color("country", legend=None),
         )
         # .configure_mark(color="#cc2a40")
-        .to_dict()
+        .to_dict(format="vega")
     )
 
 

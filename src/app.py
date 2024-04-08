@@ -60,6 +60,31 @@ title_header = [
     ),
 ]
 
+page_footer = [
+    html.P("Last Updated: 2024-04-05"),
+    html.P(
+        [
+            "Made by: ",
+            html.A("@farrandi", href="https://github.com/farrandi"),
+            ", ",
+            html.A("@monazhu", href="https://github.com/monazhu"),
+            ", ",
+            html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
+            ", ",
+            html.A("@Rachel0619", href="https://github.com/Rachel0619"),
+        ]
+    ),
+    html.P(
+        [
+            "Repo: ",
+            html.A(
+                "Hotspot",
+                href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
+            ),
+        ]
+    ),
+]
+
 # Inputs
 year_slider = dcc.RangeSlider(
     min=1900,
@@ -166,30 +191,7 @@ app.layout = dbc.Container(
             style=row_style,
         ),
         html.Footer(
-            [
-                html.P("Last Updated: 2024-04-05"),
-                html.P(
-                    [
-                        "Made by: ",
-                        html.A("@farrandi", href="https://github.com/farrandi"),
-                        ", ",
-                        html.A("@monazhu", href="https://github.com/monazhu"),
-                        ", ",
-                        html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
-                        ", ",
-                        html.A("@Rachel0619", href="https://github.com/Rachel0619"),
-                    ]
-                ),
-                html.P(
-                    [
-                        "Repo: ",
-                        html.A(
-                            "Hotspot",
-                            href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
-                        ),
-                    ]
-                ),
-            ],
+            page_footer,
             style=footer_style,
         ),
     ],
