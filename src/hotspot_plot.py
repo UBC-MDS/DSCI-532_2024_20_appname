@@ -7,19 +7,24 @@ CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
 ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
 
 
-def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
+def filter_data(df, country_codes, start_year=1900, end_year=2022):
+    """
+    Filters the data based on the selected countries and year range.
+    """
+    if country_codes:
+        df = df[df.iso_code.isin(country_codes)]
+    return df.query(f"{start_year} <= year <= {end_year}")
+
+
+def plot_global_temp_co2(df, start_year=1900, end_year=2022):
     """
     Plots the global temperature and CO2 concentration from start_year to end_year.
     """
     co2_color = "#424254"
     temp_color = "#cc2a40"
 
-    if country_codes:
-        df = df[df.iso_code.isin(country_codes)]
-
     df_year = (
-        df.query(f"{start_year} <= year <= {end_year}")
-        .groupby("year")
+        df.groupby("year")
         .aggregate({"co2": "sum", "temperature_change_from_co2": "mean"})
         .reset_index()
         .dropna()
@@ -57,15 +62,10 @@ def plot_global_temp_co2(df, country_codes, start_year=1900, end_year=2022):
     ).to_dict()
 
 
-def plot_world_map(df, country_codes, start_year=1900, end_year=2022):
+def plot_world_map(df_filtered):
     """
     Plots the world map of CO2 emissions for the selected countries from start_year to end_year.
     """
-
-    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
-    if country_codes:
-        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
-
     fig = px.choropleth(
         df_filtered,
         locations="iso_code",
@@ -92,14 +92,10 @@ def plot_world_map(df, country_codes, start_year=1900, end_year=2022):
     return fig
 
 
-def plot_top_emitters(df, country_codes, start_year=1900, end_year=2022, n=10):
+def plot_top_emitters(df_filtered, n=10):
     """
     Plots the top n CO2 emitters from start_year to end_year.
     """
-    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
-    if country_codes:
-        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
-
     df_sorted = (
         df_filtered.groupby("country")
         .sum()
@@ -120,14 +116,10 @@ def plot_top_emitters(df, country_codes, start_year=1900, end_year=2022, n=10):
     )
 
 
-def get_total_co2_emissions(df, country_codes, start_year=1900, end_year=2022):
+def get_total_co2_emissions(df_filtered):
     """
     Get the total CO2 emissions for the selected countries from start_year to end_year.
     """
-    df_filtered = df.query(f"{start_year} <= year <= {end_year}")
-    if country_codes:
-        df_filtered = df_filtered[df_filtered.iso_code.isin(country_codes)]
-
     total_co2 = df_filtered[["co2"]].sum()  # Gt
     return total_co2.values[0]
 

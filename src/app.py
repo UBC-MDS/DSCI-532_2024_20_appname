@@ -193,16 +193,15 @@ def update_(year, country):
     """
     Update all the plots based on the year range and selected countries.
     """
-    world_map_fig = hp.plot_world_map(df, country, start_year=year[0], end_year=year[1])
+    df_filtered = hp.filter_data(df, country, start_year=year[0], end_year=year[1])
+
+    world_map_fig = hp.plot_world_map(df_filtered)
     global_temp_co2_fig = hp.plot_global_temp_co2(
-        df, country, start_year=year[0], end_year=year[1]
+        df_filtered, start_year=year[0], end_year=year[1]
     )
-    top_emitters_fig = hp.plot_top_emitters(
-        df, country, start_year=year[0], end_year=year[1]
-    )
-    total_co2 = hp.get_total_co2_emissions(
-        df, country, start_year=year[0], end_year=year[1]
-    )
+    top_emitters_fig = hp.plot_top_emitters(df_filtered)
+
+    total_co2 = hp.get_total_co2_emissions(df_filtered)
     total_co2_fig = f"{total_co2*1000:,.0f} kT"
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
     fun_fact_fig = f"This is equivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
