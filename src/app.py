@@ -43,25 +43,81 @@ footer_style = {
     "color": "black",  # Text color
 }
 
-# Define layout
-app.layout = dbc.Container(
-    [
-        # HEADER
-        html.Div(
-            [
-                html.H1(children="Hotspot", style=title_style),  # Apply title style
-                html.P(
-                    [
-                        """ 
+# Define components
+
+title_header = [
+    html.H1(children="Hotspot", style=title_style),  # Apply title style
+    html.P(
+        [
+            """ 
                 How many kilotons of CO2 are emitted by countries across the world? 
                 Our Hotspot dashboard offers an easy and intuitive way to look at CO2
                 emissions by different countries in the world, that allows for easy
                 filtering by year range and country.
                 """
-                    ],
-                    style=title_p_style,
-                ),
-            ],
+        ],
+        style=title_p_style,
+    ),
+]
+
+# Inputs
+year_slider = dcc.RangeSlider(
+    min=1900,
+    max=2022,
+    step=1,
+    value=[1900, 2022],
+    marks={
+        1900: "1900",
+        1950: "1950",
+        2000: "2000",
+        2022: "2022",
+    },
+    tooltip={"placement": "bottom"},
+    pushable=20,
+    id="year-slider",
+    updatemode="drag",
+)
+
+country_dropdown = dcc.Dropdown(
+    id="country-dropdown",
+    options=[
+        # country_codes
+        {"label": name, "value": code}
+        for name, code in country_codes.items()
+    ],
+    multi=True,
+)
+
+# Outputs
+world_map = dcc.Graph(figure={}, id="world-map")
+
+information_text = [
+    html.H4("Total CO2 emissions:"),
+    html.H2(id="total-co2", style={"color": "#cc2a40"}),
+    html.P("Over selected countried over selected years."),
+    html.Br(),
+    html.P(id="fun-fact"),
+]
+
+top_emitters = dvc.Vega(
+    id="top-emmitters",
+    opt={"renderer": "svg", "actions": False},
+    style={"width": "100%"},
+)
+
+global_temp_co2 = dvc.Vega(
+    id="global-temp-co2",
+    opt={"renderer": "svg", "actions": False},
+    style={"width": "100%", "height": "200px"},
+)
+
+
+# Define layout
+app.layout = dbc.Container(
+    [
+        # HEADER
+        html.Div(
+            title_header,
             style=header_style,  # Apply header style
         ),
         # First container, contains widgets (year range, countries) & key KPI
@@ -71,43 +127,13 @@ app.layout = dbc.Container(
                     [
                         html.H2("Filter Options"),
                         html.H4("Select Year Range"),
-                        dcc.RangeSlider(
-                            min=1900,
-                            max=2022,
-                            step=1,
-                            value=[1900, 2022],
-                            marks={
-                                1900: "1900",
-                                1950: "1950",
-                                2000: "2000",
-                                2022: "2022",
-                            },
-                            tooltip={"placement": "bottom"},
-                            pushable=20,
-                            id="year-slider",
-                            updatemode="drag",
-                        ),
+                        year_slider,
                         html.H4("Select Countries"),
-                        dcc.Dropdown(
-                            id="country-dropdown",
-                            options=[
-                                # country_codes
-                                {"label": name, "value": code}
-                                for name, code in country_codes.items()
-                            ],
-                            multi=True,
-                        ),
+                        country_dropdown,
                     ],
                 ),
                 dbc.Col(
-                    [
-                        html.H4("Total CO2 emissions:"),
-                        html.H2(id="total-co2", style={"color": "#cc2a40"}),
-                        html.P("Over selected countried over selected years."),
-                        html.Br(),
-                        # html.H4("Fun Fact!"),
-                        html.P(id="fun-fact"),
-                    ],
+                    information_text,
                     align="center",
                     md=5,
                 ),
@@ -122,24 +148,16 @@ app.layout = dbc.Container(
                 dbc.Col(
                     [
                         html.H4("World Map of CO2 Emissions"),
-                        dcc.Graph(figure={}, id="world-map"),
+                        world_map,
                     ],
                     md=7,
                 ),
                 dbc.Col(
                     [
                         html.H4("Top CO2 Emitters"),
-                        dvc.Vega(
-                            id="top-emmitters",
-                            opt={"renderer": "svg", "actions": False},
-                            style={"width": "100%"},
-                        ),
+                        top_emitters,
                         html.H4("Temperature and CO2 Emissions over Time"),
-                        dvc.Vega(
-                            id="global-temp-co2",
-                            opt={"renderer": "svg", "actions": False},
-                            style={"width": "100%", "height": "200px"},
-                        ),
+                        global_temp_co2,
                     ],
                     align="center",
                 ),
