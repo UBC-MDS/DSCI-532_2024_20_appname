@@ -222,7 +222,7 @@ def update_(year, country):
     top_emitters_fig = hp.plot_top_emitters(df_filtered)
 
     total_co2 = hp.get_total_co2_emissions(df_filtered)
-    total_co2_fig = f"{total_co2*1000:,.0f} kT"
+    total_co2_fig = f"{total_co2:,.0f} GT"
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
     fun_fact_fig = f"This is equivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
 
