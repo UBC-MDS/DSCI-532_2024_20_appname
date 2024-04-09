@@ -41,7 +41,7 @@ def plot_global_temp_co2(df, start_year=1900, end_year=2022):
     )
 
     co2_line = base.mark_line(color=co2_color).encode(
-        y=alt.Y("co2").title("CO2 Emissions"),
+        y=alt.Y("co2").title("CO2 Emission (GT)"),
         tooltip=[alt.Tooltip("year:O"), alt.Tooltip("co2", title="CO2 Emissions (GT)")],
     )
     temp_line = base.mark_line(stroke=temp_color).encode(
@@ -110,8 +110,8 @@ def plot_top_emitters(df_filtered, n=10):
         alt.Chart(df_sorted, width="container")
         .mark_bar()
         .encode(
-            y=alt.Y("country", title="Country").sort("-x"),
-            x=alt.X("co2", title="CO2 Emissions"),
+            y=alt.Y("country", title="").sort("-x"),
+            x=alt.X("co2", title="CO2 Emissions (GT)"),
         )
         .configure_mark(color="#cc2a40")
         .to_dict(format="vega")
