@@ -43,25 +43,106 @@ footer_style = {
     "color": "black",  # Text color
 }
 
-# Define layout
-app.layout = dbc.Container(
-    [
-        # HEADER
-        html.Div(
-            [
-                html.H1(children="Hotspot", style=title_style),  # Apply title style
-                html.P(
-                    [
-                        """ 
+# Define components
+
+title_header = [
+    html.H1(children="Hotspot", style=title_style),  # Apply title style
+    html.P(
+        [
+            """ 
                 How many kilotons of CO2 are emitted by countries across the world? 
                 Our Hotspot dashboard offers an easy and intuitive way to look at CO2
                 emissions by different countries in the world, that allows for easy
                 filtering by year range and country.
                 """
-                    ],
-                    style=title_p_style,
-                ),
-            ],
+        ],
+        style=title_p_style,
+    ),
+]
+
+page_footer = [
+    html.P("Last Updated: 2024-04-05"),
+    html.P(
+        [
+            "Made by: ",
+            html.A("@farrandi", href="https://github.com/farrandi"),
+            ", ",
+            html.A("@monazhu", href="https://github.com/monazhu"),
+            ", ",
+            html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
+            ", ",
+            html.A("@Rachel0619", href="https://github.com/Rachel0619"),
+        ]
+    ),
+    html.P(
+        [
+            "Repo: ",
+            html.A(
+                "Hotspot",
+                href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
+            ),
+        ]
+    ),
+]
+
+# Inputs
+year_slider = dcc.RangeSlider(
+    min=1900,
+    max=2022,
+    step=1,
+    value=[1900, 2022],
+    marks={
+        1900: "1900",
+        1950: "1950",
+        2000: "2000",
+        2022: "2022",
+    },
+    tooltip={"placement": "bottom"},
+    pushable=20,
+    id="year-slider",
+    updatemode="drag",
+)
+
+country_dropdown = dcc.Dropdown(
+    id="country-dropdown",
+    options=[
+        # country_codes
+        {"label": name, "value": code}
+        for name, code in country_codes.items()
+    ],
+    multi=True,
+)
+
+# Outputs
+world_map = dcc.Graph(figure={}, id="world-map")
+
+information_text = [
+    html.H4("Total CO2 emissions:"),
+    html.H2(id="total-co2", style={"color": "#cc2a40"}),
+    html.P("Over selected countried over selected years."),
+    html.Br(),
+    html.P(id="fun-fact"),
+]
+
+top_emitters = dvc.Vega(
+    id="top-emmitters",
+    opt={"renderer": "svg", "actions": False},
+    style={"width": "100%"},
+)
+
+global_temp_co2 = dvc.Vega(
+    id="global-temp-co2",
+    opt={"renderer": "svg", "actions": False},
+    style={"width": "100%", "height": "200px"},
+)
+
+
+# Define layout
+app.layout = dbc.Container(
+    [
+        # HEADER
+        html.Div(
+            title_header,
             style=header_style,  # Apply header style
         ),
         # First container, contains widgets (year range, countries) & key KPI
@@ -71,43 +152,13 @@ app.layout = dbc.Container(
                     [
                         html.H2("Filter Options"),
                         html.H4("Select Year Range"),
-                        dcc.RangeSlider(
-                            min=1900,
-                            max=2022,
-                            step=1,
-                            value=[1900, 2022],
-                            marks={
-                                1900: "1900",
-                                1950: "1950",
-                                2000: "2000",
-                                2022: "2022",
-                            },
-                            tooltip={"placement": "bottom"},
-                            pushable=20,
-                            id="year-slider",
-                            updatemode="drag",
-                        ),
+                        year_slider,
                         html.H4("Select Countries"),
-                        dcc.Dropdown(
-                            id="country-dropdown",
-                            options=[
-                                # country_codes
-                                {"label": name, "value": code}
-                                for name, code in country_codes.items()
-                            ],
-                            multi=True,
-                        ),
+                        country_dropdown,
                     ],
                 ),
                 dbc.Col(
-                    [
-                        html.H4("Total CO2 emissions:"),
-                        html.H2(id="total-co2", style={"color": "#cc2a40"}),
-                        html.P("Over selected countried over selected years."),
-                        html.Br(),
-                        # html.H4("Fun Fact!"),
-                        html.P(id="fun-fact"),
-                    ],
+                    information_text,
                     align="center",
                     md=5,
                 ),
@@ -122,24 +173,16 @@ app.layout = dbc.Container(
                 dbc.Col(
                     [
                         html.H4("World Map of CO2 Emissions"),
-                        dcc.Graph(figure={}, id="world-map"),
+                        world_map,
                     ],
                     md=7,
                 ),
                 dbc.Col(
                     [
                         html.H4("Top CO2 Emitters"),
-                        dvc.Vega(
-                            id="top-emmitters",
-                            opt={"renderer": "svg", "actions": False},
-                            style={"width": "100%"},
-                        ),
+                        top_emitters,
                         html.H4("Temperature and CO2 Emissions over Time"),
-                        dvc.Vega(
-                            id="global-temp-co2",
-                            opt={"renderer": "svg", "actions": False},
-                            style={"width": "100%", "height": "200px"},
-                        ),
+                        global_temp_co2,
                     ],
                     align="center",
                 ),
@@ -148,30 +191,7 @@ app.layout = dbc.Container(
             style=row_style,
         ),
         html.Footer(
-            [
-                html.P("Last Updated: 2024-04-05"),
-                html.P(
-                    [
-                        "Made by: ",
-                        html.A("@farrandi", href="https://github.com/farrandi"),
-                        ", ",
-                        html.A("@monazhu", href="https://github.com/monazhu"),
-                        ", ",
-                        html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
-                        ", ",
-                        html.A("@Rachel0619", href="https://github.com/Rachel0619"),
-                    ]
-                ),
-                html.P(
-                    [
-                        "Repo: ",
-                        html.A(
-                            "Hotspot",
-                            href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
-                        ),
-                    ]
-                ),
-            ],
+            page_footer,
             style=footer_style,
         ),
     ],
@@ -182,70 +202,37 @@ app.layout = dbc.Container(
 # Controls for Interactive Plot
 @callback(
     Output("world-map", "figure"),
-    Input("year-slider", "value"),
-    Input("country-dropdown", "value"),
-)
-def update_world_map(year, country):
-    """
-    Update the world map based on the year range and selected countries.
-    """
-    return hp.plot_world_map(df, country, start_year=year[0], end_year=year[1])
-
-
-@callback(
     Output("global-temp-co2", "spec"),
-    Input("year-slider", "value"),
-    Input("country-dropdown", "value"),
-)
-def update_global_temp_co2(year, country):
-    """
-    Update the global temperature and CO2 plot based on the year range selected.
-    """
-    return hp.plot_global_temp_co2(df, country, start_year=year[0], end_year=year[1])
-
-
-@callback(
     Output("top-emmitters", "spec"),
-    Input("year-slider", "value"),
-    Input("country-dropdown", "value"),
-)
-def update_top_emitters(year, country):
-    """
-    Update the top CO2 emitters plot based on the year range selected.
-    """
-    return hp.plot_top_emitters(df, country, start_year=year[0], end_year=year[1])
-
-
-@callback(
     Output("total-co2", "children"),
-    Input("year-slider", "value"),
-    Input("country-dropdown", "value"),
-)
-def update_total_co2(year, country):
-    """
-    Update the total CO2 emissions based on the year range selected.
-    """
-    total_co2 = hp.get_total_co2_emissions(
-        df, country, start_year=year[0], end_year=year[1]
-    )
-    return f"{total_co2*1000:,.0f} kT"
-
-
-@callback(
     Output("fun-fact", "children"),
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
-def update_fun_fact(year, country):
+def update_(year, country):
     """
-    Update the fun fact based on the total CO2 emissions.
-    Funfact: How many empire state buildings is equivalent to the total CO2 emissions.
+    Update all the plots based on the year range and selected countries.
     """
-    total_co2 = hp.get_total_co2_emissions(
-        df, country, start_year=year[0], end_year=year[1]
+    df_filtered = hp.filter_data(df, country, start_year=year[0], end_year=year[1])
+
+    world_map_fig = hp.plot_world_map(df_filtered)
+    global_temp_co2_fig = hp.plot_global_temp_co2(
+        df_filtered, start_year=year[0], end_year=year[1]
     )
+    top_emitters_fig = hp.plot_top_emitters(df_filtered)
+
+    total_co2 = hp.get_total_co2_emissions(df_filtered)
+    total_co2_fig = f"{total_co2*1000:,.0f} kT"
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
-    return f"This is equivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
+    fun_fact_fig = f"This is equivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
+
+    return (
+        world_map_fig,
+        global_temp_co2_fig,
+        top_emitters_fig,
+        total_co2_fig,
+        fun_fact_fig,
+    )
 
 
 if __name__ == "__main__":
