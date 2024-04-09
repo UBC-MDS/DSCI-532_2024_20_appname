@@ -5,6 +5,7 @@ import plotly.express as px
 
 CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
 ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
+MAX_CO2 = 420e3
 
 alt.data_transformers.enable("vegafusion")
 
@@ -41,10 +42,10 @@ def plot_global_temp_co2(df, start_year=1900, end_year=2022):
 
     co2_line = base.mark_line(color=co2_color).encode(
         y=alt.Y("co2").title("CO2 Emissions"),
-        tooltip=[alt.Tooltip("year:O"), alt.Tooltip("co2", title="CO2 Emissions")],
+        tooltip=[alt.Tooltip("year:O"), alt.Tooltip("co2", title="CO2 Emissions (GT)")],
     )
     temp_line = base.mark_line(stroke=temp_color).encode(
-        y=alt.Y("temperature_change_from_co2").title("Temperature Change"),
+        y=alt.Y("temperature_change_from_co2").title("Temperature Change (°C)"),
         tooltip=[
             alt.Tooltip("year:O"),
             alt.Tooltip("temperature_change_from_co2", title="Temperature Change"),
@@ -68,6 +69,8 @@ def plot_world_map(df_filtered):
     """
     Plots the world map of CO2 emissions for the selected countries from start_year to end_year.
     """
+    df_filtered = df_filtered.groupby(["iso_code"]).sum().reset_index()
+
     fig = px.choropleth(
         df_filtered,
         locations="iso_code",
@@ -77,7 +80,8 @@ def plot_world_map(df_filtered):
         #     [1.0, "#cc2a40"],  # Dark red for highest value
         # ],
         color_continuous_scale="Reds",
-        labels={"co2": "CO2 Emissions"},
+        range_color=(0, MAX_CO2),
+        labels={"co2": "CO2 Emissions (GT)"},
         hover_name="country",
         scope="world",
     )
@@ -111,9 +115,8 @@ def plot_top_emitters(df_filtered, n=10):
         .encode(
             y=alt.Y("country", title="Country").sort("-x"),
             x=alt.X("co2", title="CO2 Emissions"),
-            color=alt.Color("country", legend=None),
         )
-        # .configure_mark(color="#cc2a40")
+        .configure_mark(color="#cc2a40")
         .to_dict(format="vega")
     )
 
