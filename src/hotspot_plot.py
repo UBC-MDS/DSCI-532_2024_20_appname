@@ -69,24 +69,21 @@ def plot_world_map(df_filtered):
     """
     Plots the world map of CO2 emissions for the selected countries from start_year to end_year.
     """
-    df_filtered = df_filtered.groupby(["iso_code"]).sum().reset_index()
+    df_filtered = df_filtered.groupby(["iso_code", "country"]).sum().reset_index()
 
     fig = px.choropleth(
         df_filtered,
         locations="iso_code",
-        color="co2",
-        # color_continuous_scale=[
-        #     [0.0, "#e6e6e6"],  # Light gray for lowest value
-        #     [1.0, "#cc2a40"],  # Dark red for highest value
-        # ],
+        color=np.log10(df_filtered["co2"] + 1),
         color_continuous_scale="Reds",
-        range_color=(0, MAX_CO2),
+        range_color=(0, np.log10(MAX_CO2)),
         labels={"co2": "CO2 Emissions (GT)"},
         hover_name="country",
         scope="world",
     )
     fig.update_layout(
         margin={"r": 0, "t": 25, "l": 0, "b": 0},
+        coloraxis_showscale=False,
     )
     fig.update_geos(
         showcountries=True,
