@@ -5,7 +5,7 @@ import plotly.express as px
 
 CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
 ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
-MAX_CO2 = 420e3
+MAX_CO2 = 420e3  # GT
 
 alt.data_transformers.enable("vegafusion")
 
@@ -84,6 +84,7 @@ def plot_world_map(df_filtered):
     fig.update_layout(
         margin={"r": 0, "t": 25, "l": 0, "b": 0},
         coloraxis_showscale=False,
+        clickmode="event+select",
     )
     fig.update_geos(
         showcountries=True,
