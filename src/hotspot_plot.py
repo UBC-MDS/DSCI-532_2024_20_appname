@@ -7,7 +7,7 @@ CO2_DENSITY = 1.98  # kg/m^3, src=wikipedia
 ESB_VOLUME = 1047723.3  # m^3, src=https://www.esbnyc.com/sites/default/files/esb_fact_sheet_4_9_14_4.pdf
 MAX_CO2 = 420e3  # GT
 
-alt.data_transformers.enable("vegafusion")
+# alt.data_transformers.enable("vegafusion")
 
 
 def filter_data(df, country_codes, start_year=1900, end_year=2022):
