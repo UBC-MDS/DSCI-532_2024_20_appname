@@ -256,4 +256,4 @@ def update_from_map(map_selected_data):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Remember to change to False before deploying
+    app.run(debug=False)  # Remember to change to False before deploying
