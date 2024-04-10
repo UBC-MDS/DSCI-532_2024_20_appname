@@ -209,10 +209,12 @@ app.layout = dbc.Container(
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
-def update_(year, country):
+def update_from_dropdown(year, country):
     """
     Update all the plots based on the year range and selected countries.
+    This is only when country is changed from the dropdown.
     """
+
     df_filtered = hp.filter_data(df, country, start_year=year[0], end_year=year[1])
 
     world_map_fig = hp.plot_world_map(df_filtered)
@@ -233,6 +235,24 @@ def update_(year, country):
         total_co2_fig,
         fun_fact_fig,
     )
+
+
+# Controls for Interactive Plot
+@callback(
+    Output("country-dropdown", "value"),
+    Input("world-map", "selectedData"),
+)
+def update_from_map(map_selected_data):
+    """
+    Update the country dropdown based on the selected countries on the map.
+    """
+    if map_selected_data:
+        selected_countries = set(
+            point["location"] for point in map_selected_data["points"]
+        )
+        country_dropdown_value = list(selected_countries)
+        return country_dropdown_value
+    return []
 
 
 if __name__ == "__main__":
