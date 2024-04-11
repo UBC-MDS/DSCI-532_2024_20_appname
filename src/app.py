@@ -55,7 +55,8 @@ app.layout = dbc.Container(
                         html.P(
                             """Hover over the graph and use box/lasso 
                             select to select the countries on the map.
-                            """
+                            """,
+                            style={'text-align': 'center'}
                             ),
                         world_map,
                         html.Br(),
