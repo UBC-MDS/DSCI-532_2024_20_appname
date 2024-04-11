@@ -16,6 +16,11 @@ h4 {
   margin-top: 20px;
 }
 
+hr {
+  color: #ED6D35;
+  height: 5px;
+}
+
 p {
   color: rgb(69, 69, 69);
   font-size: 16px;
@@ -27,14 +32,19 @@ p {
 }
 
 .app-header {
-  color: #404040;
+  /* margin: 0 -9999rem; */
+  padding: 0.25rem 1.5rem;
+  color: #595959;
   font-weight: 900;
+  /* background-color: #F5C249; */
+  /* margin: 0 auto; */
+  overflow: hidden;
 }
 
 .app-widget {
-  border: 3px solid #f6a07c;
-  border-radius: 10px;
-  background-color: #FEF9EC;
+  border: 3px solid #F2F2F2;
+  border-radius: 20px;
+  background-color: #F2F2F2;
 }
 
 .app-row {
