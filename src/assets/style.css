@@ -1,16 +1,24 @@
 h1 {
-  color: #000000;
+  color: #EA3F50;
   font-size: 60px;
+  font-weight: 900;
 }
 
 h2 {
-  color: #cc2a40;
+  color: #EA3F50;
   font-size: 40px;
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+  margin-top: 10px;
 }
 
 p {
   color: rgb(69, 69, 69);
   font-size: 16px;
+  padding: 0px;
 }
 
 .app {
@@ -18,15 +26,20 @@ p {
 }
 
 .app-header {
-  color: white;
-  padding: 20px;
+  color: #404040;
+  font-weight: 900;
 }
+
+.app-widget {
+  background-color: #F2F2F2;
+}
+
 .app-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .app-footer {

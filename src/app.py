@@ -10,7 +10,8 @@ from src.components import (
     world_map,
     top_emitters,
     global_temp_co2,
-    information_text,
+    total_co2,
+    fun_fact,
 )
 
 # Initialize Dash app
@@ -26,46 +27,52 @@ app.layout = dbc.Container(
             title_header,
             className="app-header",
         ),
-        # First container, contains widgets (year range, countries) & key KPI
+        html.Hr(),
         dbc.Row(
             [
+                # First container, contains widgets (year range, countries) & key KPI
                 dbc.Col(
                     [
-                        html.H2("Filter Options"),
-                        html.H4("Select Year Range"),
+                        html.H4("Filter Options"),
+                        html.H5("Select Year Range"),
                         year_slider,
-                        html.H4("Select Countries"),
+                        html.H5("Select Countries"),
                         country_dropdown,
+                        html.Br(),
+                        html.H4("Total CO2 Emission:"),
+                        total_co2,
+                        html.P("Over selected countires and year range"),
+                        html.Br(),
+                        fun_fact,
                     ],
+                    className="app-widget",
                 ),
-                dbc.Col(
-                    information_text,
-                    align="center",
-                    md=5,
-                ),
-            ],
-            className="app-row",
-        ),
-        html.Br(),
-        # Second container, contains map (left), top CO2 emitters (top right), &
-        # temperature vs CO2 over time (bottom right)
-        dbc.Row(
-            [
+                # Second container, contains map (left), top CO2 emitters (top right), &
+                # temperature vs CO2 over time (bottom right)
                 dbc.Col(
                     [
                         html.H4("World Map of CO2 Emissions"),
                         world_map,
-                    ],
-                    md=7,
-                ),
-                dbc.Col(
-                    [
-                        html.H4("Top CO2 Emitters"),
-                        top_emitters,
-                        html.H4("Temperature and CO2 Emissions over Time"),
-                        global_temp_co2,
+                        html.Br(),
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.H4("Top CO2 Emitters"),
+                                        top_emitters,
+                                    ]
+                                ),
+                                dbc.Col(
+                                    [
+                                html.H4("Temperature and CO2 Emissions over Time"),
+                                global_temp_co2,
+                                    ]
+                                ),                                
+                            ]
+                        )
                     ],
                     align="center",
+                    md=9,
                 ),
             ],
             className="app-row",
