@@ -52,6 +52,11 @@ app.layout = dbc.Container(
                 dbc.Col(
                     [
                         html.H4("World Map of CO2 Emissions"),
+                        html.P(
+                            """Hover over the graph and use box/lasso 
+                            select to select the countries on the map.
+                            """
+                            ),
                         world_map,
                         html.Br(),
                         dbc.Row(

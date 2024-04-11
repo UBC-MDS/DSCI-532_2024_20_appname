@@ -8,11 +8,12 @@ h2 {
   color: #EA3F50;
   font-size: 40px;
   text-align: center;
+  font-weight: 900;
 }
 
 h4 {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 p {
@@ -31,7 +32,9 @@ p {
 }
 
 .app-widget {
-  background-color: #F2F2F2;
+  border: 3px solid #f6a07c;
+  border-radius: 10px;
+  background-color: #FEF9EC;
 }
 
 .app-row {
