@@ -56,8 +56,8 @@ app.layout = dbc.Container(
                             """Hover over the graph and use box/lasso 
                             select to select the countries on the map.
                             """,
-                            style={'text-align': 'center'}
-                            ),
+                            style={"text-align": "center"},
+                        ),
                         world_map,
                         html.Br(),
                         dbc.Row(
@@ -70,12 +70,14 @@ app.layout = dbc.Container(
                                 ),
                                 dbc.Col(
                                     [
-                                html.H4("Temperature and CO2 Emissions over Time"),
-                                global_temp_co2,
+                                        html.H4(
+                                            "Temperature and CO2 Emissions over Time"
+                                        ),
+                                        global_temp_co2,
                                     ]
-                                ),                                
+                                ),
                             ]
-                        )
+                        ),
                     ],
                     align="center",
                     md=9,
@@ -92,4 +94,4 @@ app.layout = dbc.Container(
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Remember to change to False before deploying
+    app.run(debug=False)  # Remember to change to False before deploying
