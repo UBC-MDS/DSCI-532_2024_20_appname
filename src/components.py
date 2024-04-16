@@ -9,18 +9,19 @@ title_header = [
     html.H1(
         children="Hotspot",
     ),
-    html.H5("How many kilotons of CO2 are emitted by countries across the world?"),
+    html.H5("How many GigaTons of CO₂ are emitted by countries across the world?"),
 ]
 
 page_footer = [
-    html.P(f"Last Updated: {date.today()}"),
+    html.P(f"Last Updated: {date.today()}", className="footer-p"),
     html.P(
         [
             """Our Hotspot dashboard offers an easy and intuitive way to look at CO2
                emissions by different countries in the world, that allows for easy
                filtering by year range and country.
             """
-        ]
+        ],
+        className="footer-p",
     ),
     html.P(
         [
@@ -32,7 +33,8 @@ page_footer = [
             html.A("@juliaeveritt", href="https://github.com/juliaeveritt"),
             ", ",
             html.A("@Rachel0619", href="https://github.com/Rachel0619"),
-        ]
+        ],
+        className="footer-p",
     ),
     html.P(
         [
@@ -41,7 +43,8 @@ page_footer = [
                 "Hotspot",
                 href="https://github.com/UBC-MDS/DSCI-532_2024_20_hotspot",
             ),
-        ]
+        ],
+        className="footer-p",
     ),
 ]
 
