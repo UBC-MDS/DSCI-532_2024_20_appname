@@ -88,15 +88,17 @@ def plot_world_map(df_filtered):
         scope="world",
     )
     fig.update_layout(
-        margin={"r": 0, "t": 25, "l": 0, "b": 0},
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         coloraxis_showscale=False,
         clickmode="event+select",
+        dragmode="select",
     )
     fig.update_geos(
         showcountries=True,
         showland=True,
         landcolor="lightgrey",
         countrycolor="darkgrey",
+        lataxis_range=[-59, 90],
     )
 
     return fig

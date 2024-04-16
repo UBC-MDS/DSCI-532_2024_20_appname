@@ -73,7 +73,7 @@ country_dropdown = dcc.Dropdown(
 )
 
 # Outputs
-world_map = dcc.Graph(figure={}, id="world-map")
+world_map = dcc.Graph(figure={}, id="world-map", className="world-map")
 
 year_header = html.P(id="year-header", className="sidebar-p")
 

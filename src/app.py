@@ -66,7 +66,7 @@ app.layout = dbc.Container(
                     [
                         html.H4("World Map of CO2 Emissions"),
                         html.P(
-                            """Hover over the graph and use box/lasso 
+                            """Hover over the graph and use box/lasso
                             select to select the countries on the map.
                             """,
                             style={"text-align": "center"},
@@ -89,11 +89,13 @@ app.layout = dbc.Container(
                                         global_temp_co2,
                                     ]
                                 ),
-                            ]
+                            ],
+                            className="bottom-container",
                         ),
                     ],
                     align="center",
                     md=9,
+                    # className="app-output-col",
                 ),
             ],
             className="app-row",
