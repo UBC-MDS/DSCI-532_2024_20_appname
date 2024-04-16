@@ -10,6 +10,7 @@ from src.data import df
     Output("top-emmitters", "spec"),
     Output("total-co2", "children"),
     Output("fun-fact", "children"),
+    Output("year-header", "children"),
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
@@ -32,12 +33,15 @@ def update_(year, country):
     num_empire_state_buildings = hp.get_number_of_esb(total_co2)
     fun_fact_fig = f"This is equivalent to {num_empire_state_buildings:,} Empire State Buildings in volume!"
 
+    year_header = f"Over selected countries and year range: {year[0]} - {year[1]}"
+
     return (
         world_map_fig,
         global_temp_co2_fig,
         top_emitters_fig,
         total_co2_fig,
         fun_fact_fig,
+        year_header,
     )
 
 

@@ -12,6 +12,7 @@ from src.components import (
     global_temp_co2,
     total_co2,
     fun_fact,
+    year_header,
 )
 
 # Initialize Dash app
@@ -39,9 +40,10 @@ app.layout = dbc.Container(
                         html.H5("Select Countries"),
                         country_dropdown,
                         html.Br(),
+                        html.Br(),
                         html.H4("Total CO2 Emission:"),
                         total_co2,
-                        html.P("Over selected countires and year range"),
+                        year_header,
                         html.Br(),
                         fun_fact,
                     ],
@@ -94,4 +96,4 @@ app.layout = dbc.Container(
 
 
 if __name__ == "__main__":
-    app.run(debug=False)  # Remember to change to False before deploying
+    app.run(debug=True)  # Remember to change to False before deploying

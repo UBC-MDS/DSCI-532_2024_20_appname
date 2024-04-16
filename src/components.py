@@ -9,9 +9,7 @@ title_header = [
     html.H1(
         children="Hotspot",
     ),
-    html.H5(
-        "How many kilotons of CO2 are emitted by countries across the world?"
-    ),
+    html.H5("How many kilotons of CO2 are emitted by countries across the world?"),
 ]
 
 page_footer = [
@@ -74,9 +72,11 @@ country_dropdown = dcc.Dropdown(
 # Outputs
 world_map = dcc.Graph(figure={}, id="world-map")
 
+year_header = html.P(id="year-header", className="sidebar-p")
+
 total_co2 = html.H2(id="total-co2")
 
-fun_fact = html.P(id="fun-fact")
+fun_fact = html.P(id="fun-fact", className="sidebar-p")
 
 top_emitters = dvc.Vega(
     id="top-emmitters",
