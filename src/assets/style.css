@@ -11,6 +11,13 @@ h2 {
   font-weight: 900;
 }
 
+h3 {
+  font-size: 30px;
+  text-align: center;
+  font-weight: 900;
+  padding-top: 15px;
+}
+
 h4 {
   text-align: center;
   margin-top: 20px;
@@ -33,13 +40,18 @@ p {
   padding: 0px;
   text-align: center;
 }
+
+.footer-p {
+  color: rgb(156, 156, 156);
+  font-size: 12px;
+  padding: 0px;
+  text-align: center;
+}
+
 .app-header {
-  /* margin: 0 -9999rem; */
   padding: 0.25rem 1.5rem;
   color: #595959;
   font-weight: 900;
-  /* background-color: #F5C249; */
-  /* margin: 0 auto; */
   overflow: hidden;
 }
 
@@ -47,6 +59,9 @@ p {
   border: 3px solid #f2f2f2;
   border-radius: 20px;
   background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .app-row {
@@ -59,4 +74,33 @@ p {
 
 .app-footer {
   padding: 10px;
+}
+
+.app-graph {
+  border: 3px solid #f2f2f2;
+  width: 100%;
+  height: 100%;
+}
+
+.info-container {
+  padding: 10px;
+}
+
+.app-container {
+  max-width: 100vw;
+  height: 100vh;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.world-map {
+  width: auto;
+  height: auto;
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 3%;
 }

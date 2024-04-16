@@ -75,25 +75,30 @@ def plot_world_map(df_filtered):
         df_filtered,
         locations="iso_code",
         color=np.log10(df_filtered["co2"] + 1),
-        color_continuous_scale=[[0.0, "#FEF8E6"],
-                                [0.3333333333333333, "#F5C249"],
-                                [0.6666666666666667, "#ED6D35"],
-                                [1, "#DE182B"]],
+        color_continuous_scale=[
+            [0.0, "#FEF8E6"],
+            [0.3333333333333333, "#F5C249"],
+            [0.6666666666666667, "#ED6D35"],
+            [1, "#DE182B"],
+        ],
         range_color=(0, np.log10(MAX_CO2)),
         labels={"co2": "CO2 Emissions (GT)"},
         hover_name="country",
+        hover_data={"co2": False, "iso_code": False},
         scope="world",
     )
     fig.update_layout(
-        margin={"r": 0, "t": 25, "l": 0, "b": 0},
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         coloraxis_showscale=False,
         clickmode="event+select",
+        dragmode="select",
     )
     fig.update_geos(
         showcountries=True,
         showland=True,
         landcolor="lightgrey",
         countrycolor="darkgrey",
+        lataxis_range=[-59, 90],
     )
 
     return fig

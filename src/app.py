@@ -34,18 +34,29 @@ app.layout = dbc.Container(
                 # First container, contains widgets (year range, countries) & key KPI
                 dbc.Col(
                     [
-                        html.H4("Filter Options"),
-                        html.H5("Select Year Range"),
-                        year_slider,
-                        html.H5("Select Countries"),
-                        country_dropdown,
-                        html.Br(),
-                        html.Br(),
-                        html.H4("Total CO2 Emission:"),
-                        total_co2,
-                        year_header,
-                        html.Br(),
-                        fun_fact,
+                        dbc.Container(
+                            [
+                                html.H3("Filter Options"),
+                                html.Br(),
+                                html.H5("Select Year Range"),
+                                year_slider,
+                                html.H5("Select Countries"),
+                                country_dropdown,
+                            ]
+                        ),
+                        dbc.Container(
+                            [
+                                html.H4("Total CO2 Emission:"),
+                                total_co2,
+                                year_header,
+                                fun_fact,
+                            ],
+                            className="info-container",
+                        ),
+                        html.Footer(
+                            page_footer,
+                            className="app-footer",
+                        ),
                     ],
                     className="app-widget",
                 ),
@@ -55,7 +66,7 @@ app.layout = dbc.Container(
                     [
                         html.H4("World Map of CO2 Emissions"),
                         html.P(
-                            """Hover over the graph and use box/lasso 
+                            """Hover over the graph and use box/lasso
                             select to select the countries on the map.
                             """,
                             style={"text-align": "center"},
@@ -78,20 +89,19 @@ app.layout = dbc.Container(
                                         global_temp_co2,
                                     ]
                                 ),
-                            ]
+                            ],
+                            className="bottom-container",
                         ),
                     ],
                     align="center",
                     md=9,
+                    # className="app-output-col",
                 ),
             ],
             className="app-row",
         ),
-        html.Footer(
-            page_footer,
-            className="app-footer",
-        ),
     ],
+    className="app-container",
 )
 
 
