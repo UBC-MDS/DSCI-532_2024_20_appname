@@ -32,7 +32,7 @@ Our dashboard provides users with a handy tool for investigating the trend of CO
 
 ### Limitations
 
-Point form for now:
+(Point form for now):
 - response time will likely still not be great - discuss why
 - Plotly selection limitations for individually clicking on countries
 - the temperature change per country data - still not totally sure how it was calculated, and can be a bit confusing
@@ -43,3 +43,10 @@ Point form for now:
 Add more functionality? Ideas:
 - More outputs - ie toggle for co2 per capita plot
 - Data engineering to obtain other data - maybe something we understand better on temp change/country side
+
+
+### Helpful resources
+Our team found the following resources to be useful in our dashboard development:
+- Feedback from our peers and the teaching team helped us prioritize adding the additonal co2 per capita plot, ensure our tool is user-friendly, and use the space on our dashboard more effectively.
+- The DSCI-532 course notes provided an excellent conceptual understanding of building dashboards and design principles.
+- Other resources? Plotly documentation?
