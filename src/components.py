@@ -1,8 +1,14 @@
 from dash import html, dcc
 import dash_vega_components as dvc
-from datetime import date
+import datetime as dt
+import os
 
 from src.data import country_codes
+
+# Get last modified data
+PATH = "src/"
+last_mod = os.path.getmtime(PATH)
+last_mod = dt.datetime.fromtimestamp(last_mod).date()
 
 # Define components
 title_header = [
@@ -13,7 +19,7 @@ title_header = [
 ]
 
 page_footer = [
-    html.P(f"Last Updated: {date.today()}", className="footer-p"),
+    html.P(f"Last Updated: {last_mod}", className="footer-p"),
     html.P(
         [
             """Our Hotspot dashboard offers an easy and intuitive way to look at CO2
