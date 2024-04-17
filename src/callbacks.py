@@ -3,6 +3,8 @@ import src.hotspot_plot as hp
 from src.data import df
 from flask_caching import Cache
 
+TIMEOUT = 1800  # 30 minutes
+
 # Initialize cache
 cache = Cache()
 
@@ -18,7 +20,7 @@ cache = Cache()
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
-@cache.memoize()
+@cache.memoize(timeout=TIMEOUT)
 def update_(year, country):
     """
     Update all the plots based on the year range and selected countries.
