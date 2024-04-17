@@ -10,3 +10,4 @@ plotly==5.19.*
 vegafusion==1.6.*
 vegafusion-python-embed==1.6.*
 vl-convert-python==1.1.*
+flask-caching==2.1.*
