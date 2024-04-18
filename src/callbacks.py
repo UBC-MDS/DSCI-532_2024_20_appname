@@ -1,6 +1,12 @@
 from dash import Input, Output, callback
 import src.hotspot_plot as hp
 from src.data import df
+from flask_caching import Cache
+
+TIMEOUT = 1800  # 30 minutes
+
+# Initialize cache
+cache = Cache()
 
 
 # Controls for Interactive Plot
@@ -14,6 +20,7 @@ from src.data import df
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
+@cache.memoize(timeout=TIMEOUT)
 def update_(year, country):
     """
     Update all the plots based on the year range and selected countries.
@@ -35,6 +42,7 @@ def update_(year, country):
 
     year_header = f"Over selected countries and year range: {year[0]} - {year[1]}"
 
+    # Return the data
     return (
         world_map_fig,
         global_temp_co2_fig,

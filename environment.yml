@@ -14,3 +14,4 @@ dependencies:
   - pip=24.0
   - pip:
       - dash-vega-components
+      - flask-caching

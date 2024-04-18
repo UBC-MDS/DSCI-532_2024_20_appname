@@ -1,6 +1,7 @@
 from dash import Dash, html
 import dash_bootstrap_components as dbc
 
+from src.callbacks import cache
 import src.callbacks
 from src.components import (
     title_header,
@@ -19,6 +20,11 @@ from src.components import (
 app = Dash(__name__, title="Hotspot", external_stylesheets=[dbc.themes.FLATLY])
 server = app.server
 
+
+# Initialize cache
+cache.init_app(
+    server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": "cache-directory"}
+)
 
 # Define layout
 app.layout = dbc.Container(
