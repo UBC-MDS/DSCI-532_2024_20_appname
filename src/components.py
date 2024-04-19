@@ -54,6 +54,16 @@ page_footer = [
     ),
 ]
 
+figure_caption = [
+    html.P(
+        [
+            """Note: temperature change represents average 
+               values over selected countries on a given year
+            """
+        ],
+    ),
+]
+
 # Inputs
 year_slider = dcc.RangeSlider(
     min=1900,
@@ -79,22 +89,38 @@ country_dropdown = dcc.Dropdown(
 )
 
 # Outputs
-world_map = dcc.Graph(figure={}, id="world-map", className="world-map")
+world_map = dcc.Loading(
+    dcc.Graph(
+        figure={}, 
+        id="world-map", 
+        className="world-map"
+    ),
+    type='circle'
+)
 
 year_header = html.P(id="year-header", className="sidebar-p")
 
-total_co2 = html.H2(id="total-co2")
+total_co2 = dcc.Loading(
+    html.H2(id="total-co2"),
+    type='circle'
+)
 
 fun_fact = html.P(id="fun-fact", className="sidebar-p")
 
-top_emitters = dvc.Vega(
+top_emitters = dcc.Loading(
+    dvc.Vega(
     id="top-emmitters",
     opt={"renderer": "svg", "actions": False},
     style={"width": "100%"},
+    ),
+    type='circle'
 )
 
-global_temp_co2 = dvc.Vega(
+global_temp_co2 = dcc.Loading(
+    dvc.Vega(
     id="global-temp-co2",
     opt={"renderer": "svg", "actions": False},
-    style={"width": "90%", "height": "250px"},
+    style={"width": "100%", "height": "250px"},
+    ),
+    type='circle'
 )
