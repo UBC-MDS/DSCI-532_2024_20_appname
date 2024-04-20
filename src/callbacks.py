@@ -8,6 +8,7 @@ TIMEOUT = 1800  # 30 minutes
 # Initialize cache
 cache = Cache()
 
+
 # Controls for Interactive Plot
 @callback(
     Output("world-map", "figure"),
@@ -50,9 +51,10 @@ def update_(year, country):
         year_header,
     )
 
+
 @callback(
-    Output('co2-emissions-ranking', 'spec'),
-    Input('total-per-capita-button', 'value'), 
+    Output("co2-emissions-ranking", "spec"),
+    Input("total-per-capita-button", "value"),
     Input("year-slider", "value"),
     Input("country-dropdown", "value"),
 )
@@ -60,12 +62,13 @@ def update_(year, country):
 def update_emission_graphs(tab, year, country):
     df_filtered = hp.filter_data(df, country, start_year=year[0], end_year=year[1])
 
-    if tab == 'tab-total':
+    if tab == "tab-total":
         co2_rank_fig = hp.plot_top_emitters(df_filtered)
-    elif tab == 'tab-per-capita':
+    elif tab == "tab-per-capita":
         co2_rank_fig = hp.plot_top_emitters_per_capita(df_filtered)
 
     return co2_rank_fig
+
 
 @callback(
     Output("country-dropdown", "value"),
@@ -82,4 +85,3 @@ def update_dropdown(map_selected_data):
         country_dropdown_value = list(selected_countries)
         return country_dropdown_value
     return []
-

@@ -85,9 +85,7 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                        html.H4(
-                                            "CO2 Emissions Ranking"
-                                        ),
+                                        html.H4("CO2 Emissions Ranking"),
                                         co2_emissions_ranking,
                                         total_per_capita_button,
                                     ],
