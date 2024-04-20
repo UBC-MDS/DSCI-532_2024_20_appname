@@ -126,6 +126,27 @@ def plot_top_emitters(df_filtered, n=10):
         .to_dict(format="vega")
     )
 
+def plot_top_emitters_per_capita(df_filtered, n=10):
+    """
+    Plots the top n CO2 emitters from start_year to end_year.
+    """
+    df_sorted_per_capita = (
+        df_filtered.groupby("country")
+        .sum()
+        .sort_values("co2_per_capita", ascending=False)
+        .head(n)
+        .reset_index()
+    )
+    return (
+        alt.Chart(df_sorted_per_capita, width="container")
+        .mark_bar()
+        .encode(
+            y=alt.Y("country", title="").sort("-x"),
+            x=alt.X("co2_per_capita", title="CO2 Emissions (GT) per capita"),
+        )
+        .configure_mark(color="#cc2a40")
+        .to_dict(format="vega")
+    )
 
 def get_total_co2_emissions(df_filtered):
     """

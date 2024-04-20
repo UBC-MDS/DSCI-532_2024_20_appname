@@ -8,12 +8,10 @@ TIMEOUT = 1800  # 30 minutes
 # Initialize cache
 cache = Cache()
 
-
 # Controls for Interactive Plot
 @callback(
     Output("world-map", "figure"),
     Output("global-temp-co2", "spec"),
-    Output("top-emmitters", "spec"),
     Output("total-co2", "children"),
     Output("fun-fact", "children"),
     Output("year-header", "children"),
@@ -34,6 +32,7 @@ def update_(year, country):
         df_filtered, start_year=year[0], end_year=year[1]
     )
     top_emitters_fig = hp.plot_top_emitters(df_filtered)
+    top_emitters_per_capita_fig = hp.plot_top_emitters_per_capita(df_filtered)
 
     total_co2 = hp.get_total_co2_emissions(df_filtered)
     total_co2_fig = f"{total_co2:,.0f} GT"
@@ -46,12 +45,27 @@ def update_(year, country):
     return (
         world_map_fig,
         global_temp_co2_fig,
-        top_emitters_fig,
         total_co2_fig,
         fun_fact_fig,
         year_header,
     )
 
+@callback(
+    Output('co2-emissions-ranking', 'spec'),
+    Input('total-per-capita-button', 'value'), 
+    Input("year-slider", "value"),
+    Input("country-dropdown", "value"),
+)
+@cache.memoize(timeout=TIMEOUT)
+def update_emission_graphs(tab, year, country):
+    df_filtered = hp.filter_data(df, country, start_year=year[0], end_year=year[1])
+
+    if tab == 'tab-total':
+        co2_rank_fig = hp.plot_top_emitters(df_filtered)
+    elif tab == 'tab-per-capita':
+        co2_rank_fig = hp.plot_top_emitters_per_capita(df_filtered)
+
+    return co2_rank_fig
 
 @callback(
     Output("country-dropdown", "value"),
@@ -68,3 +82,4 @@ def update_dropdown(map_selected_data):
         country_dropdown_value = list(selected_countries)
         return country_dropdown_value
     return []
+
