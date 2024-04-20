@@ -111,7 +111,7 @@ co2_emissions_ranking = dcc.Loading(
     dvc.Vega(
         id="co2-emissions-ranking",
         opt={"renderer": "svg", "actions": False},
-        style={"width": "100%", "height": "250px"},
+        style={"width": "90%", "height": "250px"},
     ),
     type="circle",
 )
@@ -120,7 +120,7 @@ global_temp_co2 = dcc.Loading(
     dvc.Vega(
         id="global-temp-co2",
         opt={"renderer": "svg", "actions": False},
-        style={"width": "100%", "height": "250px"},
+        style={"width": "90%", "height": "250px"},
     ),
     type="circle",
 )
