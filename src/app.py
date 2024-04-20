@@ -9,7 +9,8 @@ from src.components import (
     year_slider,
     country_dropdown,
     world_map,
-    top_emitters,
+    total_per_capita_button,
+    co2_emissions_ranking,
     global_temp_co2,
     total_co2,
     fun_fact,
@@ -84,9 +85,12 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                        html.H4("Top CO2 Emitters"),
-                                        top_emitters,
-                                    ]
+                                        html.H4(
+                                            "CO2 Emissions Ranking"
+                                        ),
+                                        total_per_capita_button,
+                                        co2_emissions_ranking,
+                                    ],
                                 ),
                                 dbc.Col(
                                     [

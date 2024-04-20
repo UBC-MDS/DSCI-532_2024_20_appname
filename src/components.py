@@ -107,15 +107,26 @@ total_co2 = dcc.Loading(
 
 fun_fact = html.P(id="fun-fact", className="sidebar-p")
 
-top_emitters = dcc.Loading(
+total_per_capita_button = dcc.RadioItems(
+    id='total-per-capita-button',
+    options=[
+        {'label': 'Total', 'value': 'tab-total'},
+        {'label': 'Per Capita', 'value': 'tab-per-capita'}
+    ],
+    value='tab-total',
+    labelStyle={'display': 'inline-block', 'marginRight': '20px'},
+    className='radio-items'
+)
+
+co2_emissions_ranking = dcc.Loading(
     dvc.Vega(
-    id="top-emmitters",
+    id="co2-emissions-ranking",
     opt={"renderer": "svg", "actions": False},
-    style={"width": "100%"},
+    style={"width": "90%", "height": "250px"},
     ),
     type='circle'
 )
-
+  
 global_temp_co2 = dcc.Loading(
     dvc.Vega(
     id="global-temp-co2",
