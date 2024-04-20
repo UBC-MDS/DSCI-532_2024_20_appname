@@ -80,7 +80,6 @@ app.layout = dbc.Container(
                             style={"text-align": "center"},
                         ),
                         world_map,
-                        html.Br(),
                         dbc.Row(
                             [
                                 dbc.Col(
