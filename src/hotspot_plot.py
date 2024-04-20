@@ -126,6 +126,7 @@ def plot_top_emitters(df_filtered, n=10):
         .to_dict(format="vega")
     )
 
+
 def plot_top_emitters_per_capita(df_filtered, n=10):
     """
     Plots the top n CO2 emitters from start_year to end_year.
@@ -147,6 +148,7 @@ def plot_top_emitters_per_capita(df_filtered, n=10):
         .configure_mark(color="#cc2a40")
         .to_dict(format="vega")
     )
+
 
 def get_total_co2_emissions(df_filtered):
     """

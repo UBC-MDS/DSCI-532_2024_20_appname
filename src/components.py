@@ -54,6 +54,12 @@ page_footer = [
     ),
 ]
 
+figure_caption = html.P(
+    """Note: temperature change represents average 
+               values over selected countries on a given year
+            """
+)
+
 # Inputs
 year_slider = dcc.RangeSlider(
     min=1900,
@@ -79,33 +85,42 @@ country_dropdown = dcc.Dropdown(
 )
 
 # Outputs
-world_map = dcc.Graph(figure={}, id="world-map", className="world-map")
+world_map = dcc.Loading(
+    dcc.Graph(figure={}, id="world-map", className="world-map"), type="circle"
+)
+
 
 year_header = html.P(id="year-header", className="sidebar-p")
 
-total_co2 = html.H2(id="total-co2")
+total_co2 = dcc.Loading(html.H2(id="total-co2"), type="circle")
 
 fun_fact = html.P(id="fun-fact", className="sidebar-p")
 
 total_per_capita_button = dcc.RadioItems(
-    id='total-per-capita-button',
+    id="total-per-capita-button",
     options=[
-        {'label': 'Total', 'value': 'tab-total'},
-        {'label': 'Per Capita', 'value': 'tab-per-capita'}
+        {"label": "Total", "value": "tab-total"},
+        {"label": "Per Capita", "value": "tab-per-capita"},
     ],
-    value='tab-total',
-    labelStyle={'display': 'inline-block', 'marginRight': '20px'},
-    className='radio-items'
+    value="tab-total",
+    labelStyle={"display": "inline-block", "marginRight": "20px"},
+    className="radio-items",
 )
 
-co2_emissions_ranking = dvc.Vega(
-    id="co2-emissions-ranking",
-    opt={"renderer": "svg", "actions": False},
-    style={"width": "90%", "height": "250px"},
+co2_emissions_ranking = dcc.Loading(
+    dvc.Vega(
+        id="co2-emissions-ranking",
+        opt={"renderer": "svg", "actions": False},
+        style={"width": "100%", "height": "250px"},
+    ),
+    type="circle",
 )
 
-global_temp_co2 = dvc.Vega(
-    id="global-temp-co2",
-    opt={"renderer": "svg", "actions": False},
-    style={"width": "90%", "height": "250px"},
+global_temp_co2 = dcc.Loading(
+    dvc.Vega(
+        id="global-temp-co2",
+        opt={"renderer": "svg", "actions": False},
+        style={"width": "100%", "height": "250px"},
+    ),
+    type="circle",
 )

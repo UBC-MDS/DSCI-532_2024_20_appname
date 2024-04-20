@@ -15,6 +15,7 @@ from src.components import (
     total_co2,
     fun_fact,
     year_header,
+    figure_caption,
 )
 
 # Initialize Dash app
@@ -84,11 +85,9 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                        html.H4(
-                                            "CO2 Emissions Ranking"
-                                        ),
-                                        total_per_capita_button,
+                                        html.H4("CO2 Emissions Ranking"),
                                         co2_emissions_ranking,
+                                        total_per_capita_button,
                                     ],
                                 ),
                                 dbc.Col(
@@ -97,6 +96,7 @@ app.layout = dbc.Container(
                                             "Temperature and CO2 Emissions over Time"
                                         ),
                                         global_temp_co2,
+                                        figure_caption,
                                     ]
                                 ),
                             ],
@@ -105,7 +105,6 @@ app.layout = dbc.Container(
                     ],
                     align="center",
                     md=9,
-                    # className="app-output-col",
                 ),
             ],
             className="app-row",
@@ -116,4 +115,4 @@ app.layout = dbc.Container(
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Remember to change to False before deploying
+    app.run(debug=False)  # Remember to change to False before deploying
