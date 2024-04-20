@@ -85,11 +85,17 @@ country_dropdown = dcc.Dropdown(
 )
 
 # Outputs
-world_map = dcc.Graph(figure={}, id="world-map", className="world-map")
+world_map = dcc.Loading(
+    dcc.Graph(figure={}, id="world-map", className="world-map"),
+    type="circle"
+)
 
 year_header = html.P(id="year-header", className="sidebar-p")
 
-total_co2 = html.H2(id="total-co2")
+total_co2 = dcc.Loading(
+    html.H2(id="total-co2"),
+    type="circle"
+)
 
 fun_fact = html.P(id="fun-fact", className="sidebar-p")
 
@@ -104,14 +110,20 @@ total_per_capita_button = dcc.RadioItems(
     className='radio-items'
 )
 
-co2_emissions_ranking = dvc.Vega(
+co2_emissions_ranking = dcc.Loading(
+    dvc.Vega(
     id="co2-emissions-ranking",
     opt={"renderer": "svg", "actions": False},
     style={"width": "90%", "height": "250px"},
+    ),
+    type='circle'
 )
 
-global_temp_co2 = dvc.Vega(
+global_temp_co2 = dcc.Loading(
+    dvc.Vega(
     id="global-temp-co2",
     opt={"renderer": "svg", "actions": False},
     style={"width": "90%", "height": "250px"},
+    ),
+    type='circle'
 )
