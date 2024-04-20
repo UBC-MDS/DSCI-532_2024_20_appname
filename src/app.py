@@ -15,6 +15,7 @@ from src.components import (
     total_co2,
     fun_fact,
     year_header,
+    figure_caption,
 )
 
 # Initialize Dash app
@@ -87,8 +88,8 @@ app.layout = dbc.Container(
                                         html.H4(
                                             "CO2 Emissions Ranking"
                                         ),
-                                        total_per_capita_button,
                                         co2_emissions_ranking,
+                                        total_per_capita_button,
                                     ],
                                 ),
                                 dbc.Col(
@@ -97,6 +98,7 @@ app.layout = dbc.Container(
                                             "Temperature and CO2 Emissions over Time"
                                         ),
                                         global_temp_co2,
+                                        figure_caption,
                                     ]
                                 ),
                             ],

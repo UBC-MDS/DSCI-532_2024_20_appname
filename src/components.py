@@ -54,6 +54,12 @@ page_footer = [
     ),
 ]
 
+figure_caption = html.P(
+            """Note: temperature change represents average 
+               values over selected countries on a given year
+            """
+)
+
 # Inputs
 year_slider = dcc.RangeSlider(
     min=1900,
