@@ -18,6 +18,8 @@ For Milestone 4, we have accomplished the following improvements:
 
 - Add a note explaining the average temperature change metric
 
+- Add loading animation after the user adjusts input widgets, as it can take a while for output plots to load
+
 - Set default tool as box select in world map
 
 - Change some spacing in the UI
