@@ -20,7 +20,13 @@ For Milestone 4, we have accomplished the following improvements:
 
 - Set default tool as box select in world map
 
+- Change some spacing in the UI
 
+- Fixed the map to not allow panning
+
+- Change so that units are consistent (GigaTons)
+
+- Add selected year as description for clarity
 ### Suggestions we chose not to implement
 Peer feedback was a valuable tool for improving on our previous dashboard iteration. While we chose to incorporate most major pieces of feedback, we did not address a suggestion to allow the selection of a single year of data. This is because we want our dashboard to prioritize demonstrating trends over time, and we feel our 15-year minimum toggle is neccesary to show meaningful trends.
 
